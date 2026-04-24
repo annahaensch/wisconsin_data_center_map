@@ -15,17 +15,19 @@ An interactive web map of data centers in Wisconsin, served via GitHub Pages.
 
 ## Data References
 
+### Wisconsin Data Centers
+
+Haensch, Anna. *Wisconsin Data Centers*. UW–Madison Data Science Institute. April 2026. [https://docs.google.com/spreadsheets/d/1j_A4BvCEKeB9IVvAbkyLEdOE3UKiVoPjt_s4WmaWaCo](https://docs.google.com/spreadsheets/d/1j_A4BvCEKeB9IVvAbkyLEdOE3UKiVoPjt_s4WmaWaCo)
+
 ### County Boundaries 24K
 
 Wisconsin Department of Natural Resources, Bureau of Technology Services. *County Boundaries 24K*. Wisconsin DNR Open Data Portal. Retrieved April 2026. [https://data-wi-dnr.opendata.arcgis.com/datasets/8b8a0896378449538cf1138a969afbc6_3](https://data-wi-dnr.opendata.arcgis.com/datasets/8b8a0896378449538cf1138a969afbc6_3)
 
 - **License:** [CC BY-SA](https://creativecommons.org/licenses/by-sa/4.0/)
 - **Coordinate system:** Wisconsin Transverse Mercator (WTM83/NAD83), EPSG:3071
-- **Contact:** DNRCHERWELL@wisconsin.gov
 
 ### US Electric Power Transmission Lines
 
 U.S. Fish and Wildlife Service. *US Electric Power Transmission Lines*. USFWS Open Data Portal. Last modified June 2025. Retrieved April 2026. [https://gis-fws.opendata.arcgis.com/datasets/fws::us-electric-power-transmission-lines](https://gis-fws.opendata.arcgis.com/datasets/fws::us-electric-power-transmission-lines)
 
 - **License:** U.S. federal government public domain data
-- **Contact:** fwsgis@fws.gov
