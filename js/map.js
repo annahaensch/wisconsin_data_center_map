@@ -1,7 +1,11 @@
 // ---------------------------------------------------------------------------
-// Map init
+// Map init — custom panes ensure correct z-order regardless of load timing
 // ---------------------------------------------------------------------------
 const map = L.map('map', { zoomControl: true }).setView([44.5, -89.5], 7);
+
+map.createPane('counties');   map.getPane('counties').style.zIndex   = 200;
+map.createPane('powerlines'); map.getPane('powerlines').style.zIndex = 300;
+map.createPane('centers');    map.getPane('centers').style.zIndex    = 400;
 
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
@@ -42,6 +46,7 @@ fetch('data/County_Boundaries_24K/County_Boundaries_24K.geojson')
   .then(r => r.json())
   .then(data => {
     L.geoJSON(data, {
+      pane: 'counties',
       style: {
         color: '#8a9bb0',
         weight: 0.8,
@@ -72,6 +77,7 @@ fetch('data/wi_power_lines.geojson')
   .then(r => r.json())
   .then(data => {
     L.geoJSON(data, {
+      pane: 'powerlines',
       style: f => ({
         color:   VOLT_COLORS[f.properties.VOLT_CLASS] || '#ccc',
         weight:  VOLT_WEIGHT[f.properties.VOLT_CLASS] || 0.7,
@@ -108,6 +114,7 @@ Papa.parse('data/data_centers.csv', {
       const { fill, stroke } = statusStyle(row['Status']);
 
       const marker = L.circleMarker([lat, lng], {
+        pane: 'centers',
         radius: acreRadius(row['Acres']),
         fillColor: fill,
         color: stroke,
@@ -138,18 +145,19 @@ const legend = L.control({ position: 'bottomright' });
 legend.onAdd = () => {
   const div = L.DomUtil.create('div', '');
   div.id = 'legend';
-  const SIZES = [
-    { r: 14, label: '≥ 100 acres' },
-    { r: 9,  label: '10–100 acres' },
-    { r: 6,  label: '1–10 acres' },
-    { r: 4,  label: '< 1 acre' },
-  ];
 
   const STATUS_LEGEND = [
     { label: 'Operational',        fill: '#404040', stroke: '#404040' },
     { label: 'Under Construction', fill: '#fdb863', stroke: '#e66101' },
     { label: 'Planned/Permitting', fill: '#b2abd2', stroke: '#5e3c99' },
     { label: 'Paused/Canceled',    fill: 'pink',    stroke: 'crimson'  },
+  ];
+
+  const SIZES = [
+    { r: 14, label: '≥ 100 acres' },
+    { r: 9,  label: '10–100 acres' },
+    { r: 6,  label: '1–10 acres' },
+    { r: 4,  label: '< 1 acre' },
   ];
 
   div.innerHTML = `
@@ -162,8 +170,10 @@ legend.onAdd = () => {
     <hr class="legend-sep">
     <h4>Size</h4>
     ${SIZES.map(({ r, label }) => `
-      <div class="legend-row" style="align-items:center">
-        <span style="display:inline-block;width:${r * 2}px;height:${r * 2}px;border-radius:50%;background:#999;border:1.5px solid #555;flex-shrink:0;margin:0 ${7 - r}px"></span>
+      <div class="legend-row" style="align-items:center;min-height:${r * 2 + 4}px">
+        <span style="display:flex;align-items:center;justify-content:center;width:28px;flex-shrink:0">
+          <span style="display:inline-block;width:${r * 2}px;height:${r * 2}px;border-radius:50%;background:#999;border:1.5px solid #555"></span>
+        </span>
         ${label}
       </div>`).join('')}
     <hr class="legend-sep">
