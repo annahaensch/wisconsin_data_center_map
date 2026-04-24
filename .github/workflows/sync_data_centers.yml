@@ -29,5 +29,6 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "Sync data_centers.csv from Google Sheets"
+            git pull --rebase origin main
             git push
           fi
