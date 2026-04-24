@@ -14,8 +14,11 @@ jobs:
 
       - name: Fetch CSV from Google Sheets
         run: |
-          curl -L "https://docs.google.com/spreadsheets/d/1j_A4BvCEKeB9IVvAbkyLEdOE3UKiVoPjt_s4WmaWaCo/gviz/tq?tqx=out:csv&sheet=Sheet1" \
+          curl -L -w "\nHTTP status: %{http_code}\n" \
+            "https://docs.google.com/spreadsheets/d/1j_A4BvCEKeB9IVvAbkyLEdOE3UKiVoPjt_s4WmaWaCo/gviz/tq?tqx=out:csv&sheet=Sheet1" \
             -o data/data_centers.csv
+          echo "--- First 3 lines of downloaded file ---"
+          head -3 data/data_centers.csv
 
       - name: Commit and push if changed
         run: |
