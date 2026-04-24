@@ -71,6 +71,18 @@ fetch('data/wi_power_lines.geojson')
   });
 
 // ---------------------------------------------------------------------------
+// Acreage → radius
+// ---------------------------------------------------------------------------
+function acreRadius(acres) {
+  const a = parseFloat(acres);
+  if (isNaN(a) || a === 0) return 5;  // unknown
+  if (a >= 100) return 14;            // mega
+  if (a >= 10)  return 9;             // large
+  if (a >= 1)   return 6;             // small
+  return 4;                           // micro
+}
+
+// ---------------------------------------------------------------------------
 // Data centers
 // ---------------------------------------------------------------------------
 Papa.parse('data/data_centers.csv', {
@@ -86,7 +98,7 @@ Papa.parse('data/data_centers.csv', {
       const { fill, stroke } = statusStyle(row['Status']);
 
       const marker = L.circleMarker([lat, lng], {
-        radius: 7,
+        radius: acreRadius(row['Acres']),
         fillColor: fill,
         color: stroke,
         weight: 1.5,
@@ -116,11 +128,25 @@ const legend = L.control({ position: 'bottomright' });
 legend.onAdd = () => {
   const div = L.DomUtil.create('div', '');
   div.id = 'legend';
+  const SIZES = [
+    { r: 14, label: '≥ 100 acres' },
+    { r: 9,  label: '10–100 acres' },
+    { r: 6,  label: '1–10 acres' },
+    { r: 4,  label: '< 1 acre' },
+  ];
+
   div.innerHTML = `
-    <h4>Data Centers</h4>
+    <h4>Status</h4>
     ${Object.entries(STATUS).map(([label, { fill, stroke }]) => `
       <div class="legend-row">
         <span class="legend-dot" style="background:${fill};border-color:${stroke}"></span>
+        ${label}
+      </div>`).join('')}
+    <hr class="legend-sep">
+    <h4>Size</h4>
+    ${SIZES.map(({ r, label }) => `
+      <div class="legend-row" style="align-items:center">
+        <span style="display:inline-block;width:${r * 2}px;height:${r * 2}px;border-radius:50%;background:#999;border:1.5px solid #555;flex-shrink:0;margin:0 ${7 - r}px"></span>
         ${label}
       </div>`).join('')}
     <hr class="legend-sep">
