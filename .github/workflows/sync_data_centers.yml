@@ -1,0 +1,28 @@
+name: Sync Data Centers from Google Sheets
+
+on:
+  workflow_dispatch:  # Run manually from GitHub Actions tab
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Fetch CSV from Google Sheets
+        run: |
+          curl -L "https://docs.google.com/spreadsheets/d/1j_A4BvCEKeB9IVvAbkyLEdOE3UKiVoPjt_s4WmaWaCo/gviz/tq?tqx=out:csv&sheet=Sheet1" \
+            -o data/data_centers.csv
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/data_centers.csv
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Sync data_centers.csv from Google Sheets"
+            git push
+          fi
