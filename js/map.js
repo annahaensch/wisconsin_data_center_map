@@ -1,11 +1,136 @@
-// Initialize map centered on Wisconsin
-const map = L.map('map').setView([44.5, -89.5], 7);
+// ---------------------------------------------------------------------------
+// Map init
+// ---------------------------------------------------------------------------
+const map = L.map('map', { zoomControl: true }).setView([44.5, -89.5], 7);
 
-// Base tile layer
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
+  subdomains: 'abcd',
   maxZoom: 19,
 }).addTo(map);
 
-// Data layers will be loaded here
-// Example: fetch('data/data_centers.geojson').then(r => r.json()).then(data => L.geoJSON(data).addTo(map));
+// ---------------------------------------------------------------------------
+// Status styling
+// ---------------------------------------------------------------------------
+const STATUS = {
+  'Operational':         { fill: '#404040', stroke: '#404040' },
+  'Under Construction':  { fill: '#fdb863', stroke: '#e66101' },
+  'Planned':             { fill: '#b2abd2', stroke: '#5e3c99' },
+  'Permitting':          { fill: '#b2abd2', stroke: '#5e3c99' },
+  'Paused':              { fill: 'pink',    stroke: 'crimson'  },
+  'Canceled':            { fill: 'pink',    stroke: 'crimson'  },
+};
+
+function statusStyle(status) {
+  return STATUS[status] || { fill: '#999', stroke: '#555' };
+}
+
+// ---------------------------------------------------------------------------
+// County boundaries
+// ---------------------------------------------------------------------------
+fetch('data/County_Boundaries_24K/County_Boundaries_24K.geojson')
+  .then(r => r.json())
+  .then(data => {
+    L.geoJSON(data, {
+      style: {
+        color: '#8a9bb0',
+        weight: 0.8,
+        fillColor: '#f5f5f0',
+        fillOpacity: 0.3,
+      }
+    }).addTo(map);
+  });
+
+// ---------------------------------------------------------------------------
+// Power lines
+// ---------------------------------------------------------------------------
+const VOLT_COLORS = {
+  '345':       '#1b7837',
+  '220-287':   '#4dac26',
+  '100-161':   '#a6d96a',
+  'UNDER 100': '#d9ef8b',
+};
+
+const VOLT_WEIGHT = {
+  '345':       2.2,
+  '220-287':   1.6,
+  '100-161':   1.1,
+  'UNDER 100': 0.7,
+};
+
+fetch('data/wi_power_lines.geojson')
+  .then(r => r.json())
+  .then(data => {
+    L.geoJSON(data, {
+      style: f => ({
+        color:   VOLT_COLORS[f.properties.VOLT_CLASS] || '#ccc',
+        weight:  VOLT_WEIGHT[f.properties.VOLT_CLASS] || 0.7,
+        opacity: 0.75,
+      })
+    }).addTo(map);
+  });
+
+// ---------------------------------------------------------------------------
+// Data centers
+// ---------------------------------------------------------------------------
+Papa.parse('data/data_centers.csv', {
+  download: true,
+  header: true,
+  skipEmptyLines: true,
+  complete: ({ data }) => {
+    data.forEach(row => {
+      const lat = parseFloat(row['Latitude']);
+      const lng = parseFloat(row['Longitude']);
+      if (isNaN(lat) || isNaN(lng)) return;
+
+      const { fill, stroke } = statusStyle(row['Status']);
+
+      const marker = L.circleMarker([lat, lng], {
+        radius: 7,
+        fillColor: fill,
+        color: stroke,
+        weight: 1.5,
+        fillOpacity: 0.9,
+      }).addTo(map);
+
+      const owner   = row['Owner']   || '—';
+      const address = row['Address'] || '—';
+      const town    = row['Town']    || '—';
+
+      marker.bindTooltip(
+        `<div class="dc-tooltip">
+           <div class="owner">${owner}</div>
+           <div class="town">${town}</div>
+           <div class="address">${address}</div>
+         </div>`,
+        { sticky: true, opacity: 1, className: '' }
+      );
+    });
+  }
+});
+
+// ---------------------------------------------------------------------------
+// Legend
+// ---------------------------------------------------------------------------
+const legend = L.control({ position: 'bottomright' });
+legend.onAdd = () => {
+  const div = L.DomUtil.create('div', '');
+  div.id = 'legend';
+  div.innerHTML = `
+    <h4>Data Centers</h4>
+    ${Object.entries(STATUS).map(([label, { fill, stroke }]) => `
+      <div class="legend-row">
+        <span class="legend-dot" style="background:${fill};border-color:${stroke}"></span>
+        ${label}
+      </div>`).join('')}
+    <hr class="legend-sep">
+    <h4>Transmission (kV)</h4>
+    ${Object.entries(VOLT_COLORS).map(([label, color]) => `
+      <div class="legend-row">
+        <span class="legend-line" style="background:${color}"></span>
+        ${label}
+      </div>`).join('')}
+  `;
+  return div;
+};
+legend.addTo(map);
