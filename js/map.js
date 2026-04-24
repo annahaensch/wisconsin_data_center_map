@@ -135,9 +135,16 @@ legend.onAdd = () => {
     { r: 4,  label: '< 1 acre' },
   ];
 
+  const STATUS_LEGEND = [
+    { label: 'Operational',        fill: '#404040', stroke: '#404040' },
+    { label: 'Under Construction', fill: '#fdb863', stroke: '#e66101' },
+    { label: 'Planned/Permitting', fill: '#b2abd2', stroke: '#5e3c99' },
+    { label: 'Paused/Canceled',    fill: 'pink',    stroke: 'crimson'  },
+  ];
+
   div.innerHTML = `
     <h4>Status</h4>
-    ${Object.entries(STATUS).map(([label, { fill, stroke }]) => `
+    ${STATUS_LEGEND.map(({ label, fill, stroke }) => `
       <div class="legend-row">
         <span class="legend-dot" style="background:${fill};border-color:${stroke}"></span>
         ${label}
