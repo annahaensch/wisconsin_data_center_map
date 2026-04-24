@@ -101,19 +101,31 @@ function acreRadius(acres) {
 // ---------------------------------------------------------------------------
 // Data centers
 // ---------------------------------------------------------------------------
+const STATUS_ORDER = ['Operational', 'Paused', 'Canceled', 'Under Construction', 'Permitting', 'Planned'];
+
+function jitter(v, amt = 0.05) {
+  return v + (Math.random() * 2 - 1) * amt;
+}
+
 Papa.parse('data/data_centers.csv', {
   download: true,
   header: true,
   skipEmptyLines: true,
   complete: ({ data }) => {
-    data.forEach(row => {
+    const sorted = [...data].sort((a, b) => {
+      const ai = STATUS_ORDER.indexOf(a['Status']);
+      const bi = STATUS_ORDER.indexOf(b['Status']);
+      return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
+    });
+
+    sorted.forEach(row => {
       const lat = parseFloat(row['Latitude']);
       const lng = parseFloat(row['Longitude']);
       if (isNaN(lat) || isNaN(lng)) return;
 
       const { fill, stroke } = statusStyle(row['Status']);
 
-      const marker = L.circleMarker([lat, lng], {
+      const marker = L.circleMarker([jitter(lat), jitter(lng)], {
         pane: 'centers',
         radius: acreRadius(row['Acres']),
         fillColor: fill,
