@@ -31,6 +31,12 @@ header h1 {
   color: #aab;
 }
 
+.last-updated {
+  font-size: 0.75rem;
+  color: #778;
+  margin-left: auto;
+}
+
 #map {
   flex: 1;
 }

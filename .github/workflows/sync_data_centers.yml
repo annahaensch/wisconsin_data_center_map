@@ -20,12 +20,13 @@ jobs:
           curl -L \
             "https://docs.google.com/spreadsheets/d/1j_A4BvCEKeB9IVvAbkyLEdOE3UKiVoPjt_s4WmaWaCo/gviz/tq?tqx=out:csv&sheet=Sheet1" \
             -o data/data_centers.csv
+          date -u +"%B %-d, %Y" > data/last_updated.txt
 
       - name: Commit and push if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/data_centers.csv
+          git add data/data_centers.csv data/last_updated.txt
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else

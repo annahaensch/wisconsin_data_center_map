@@ -26,6 +26,16 @@ function statusStyle(status) {
 }
 
 // ---------------------------------------------------------------------------
+// Last updated
+// ---------------------------------------------------------------------------
+fetch('data/last_updated.txt')
+  .then(r => r.text())
+  .then(date => {
+    const el = document.getElementById('last-updated');
+    if (el) el.textContent = `Data last updated: ${date.trim()}`;
+  });
+
+// ---------------------------------------------------------------------------
 // County boundaries
 // ---------------------------------------------------------------------------
 fetch('data/County_Boundaries_24K/County_Boundaries_24K.geojson')
