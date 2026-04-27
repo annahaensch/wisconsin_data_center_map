@@ -7,7 +7,7 @@ authors:
     email: anna.haensch@wisc.edu
     affiliation: "UW–Madison Data Science Institute"
 repository-code: "https://github.com/annahaensch/wisconsin_data_center_map"
-url: "https://annahaensch.github.io/wisconsin_data_center_map"
+url: "https://annahaensch.com/wisconsin_data_center_map"
 abstract: >
   An interactive web map of data centers in Wisconsin, including operational,
   under-construction, planned, and canceled facilities. Data are collected
