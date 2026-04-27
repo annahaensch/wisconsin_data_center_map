@@ -114,50 +114,46 @@ Papa.parse('data/data_centers.csv', {
       return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
     });
 
-    // Spread co-located markers in a small circle so each is visible.
-    const coordKey = r => {
-      const lat = parseFloat(r['Latitude']);
-      const lng = parseFloat(r['Longitude']);
-      return isNaN(lat) || isNaN(lng) ? null : `${lat.toFixed(4)},${lng.toFixed(4)}`;
-    };
+    // Group co-located rows (same lat/lon) into a single marker.
     const groups = {};
+    const groupOrder = [];
     sorted.forEach(row => {
-      const key = coordKey(row);
-      if (key) (groups[key] = groups[key] || []).push(row);
-    });
-    const JITTER = 0.012; // ~1.3 km — invisible at state zoom, separates at city zoom
-    Object.values(groups).forEach(group => {
-      if (group.length < 2) return;
-      group.forEach((row, i) => {
-        const angle = (2 * Math.PI * i) / group.length;
-        row._jLat = JITTER * Math.sin(angle);
-        row._jLng = JITTER * Math.cos(angle);
-      });
-    });
-
-    sorted.forEach(row => {
-      const lat = parseFloat(row['Latitude']) + (row._jLat || 0);
-      const lng = parseFloat(row['Longitude']) + (row._jLng || 0);
+      const lat = parseFloat(row['Latitude']);
+      const lng = parseFloat(row['Longitude']);
       if (isNaN(lat) || isNaN(lng)) return;
+      const key = `${lat.toFixed(4)},${lng.toFixed(4)}`;
+      if (!groups[key]) { groups[key] = []; groupOrder.push(key); }
+      groups[key].push(row);
+    });
 
-      const { fill, stroke } = statusStyle(row['Status']);
+    groupOrder.forEach(key => {
+      const group  = groups[key];
+      const first  = group[0]; // highest-priority status after sort
+      const lat    = parseFloat(first['Latitude']);
+      const lng    = parseFloat(first['Longitude']);
 
-      const marker = L.circleMarker([lat,lng], {
+      const { fill, stroke } = statusStyle(first['Status']);
+
+      // Use the largest known acreage in the group for the marker size.
+      const acres = group.map(r => parseFloat(r['Acres'])).filter(a => a > 0);
+      const maxAcres = acres.length ? Math.max(...acres) : NaN;
+
+      const marker = L.circleMarker([lat, lng], {
         pane: 'centers',
-        radius: acreRadius(row['Acres']),
+        radius: acreRadius(maxAcres),
         fillColor: fill,
         color: stroke,
         weight: 1.5,
         fillOpacity: 0.9,
       }).addTo(map);
 
-      const owner   = row['Owner']   || '—';
-      const address = row['Address'] || '—';
-      const town    = row['Town']    || '—';
+      const owners  = group.map(r => r['Owner'] || '—').join(', ');
+      const address = first['Address'] || '—';
+      const town    = first['Town']    || '—';
 
       marker.bindTooltip(
         `<div class="dc-tooltip">
-           <div class="owner">${owner}</div>
+           <div class="owner">${owners}</div>
            <div class="town">${town}</div>
            <div class="address">${address}</div>
          </div>`,
