@@ -103,10 +103,6 @@ function acreRadius(acres) {
 // ---------------------------------------------------------------------------
 const STATUS_ORDER = ['Operational', 'Paused', 'Canceled', 'Under Construction', 'Permitting', 'Planned'];
 
-function jitter(v, amt = 0.05) {
-  return v + (Math.random() * 2 - 1) * amt;
-}
-
 Papa.parse('data/data_centers.csv', {
   download: true,
   header: true,
@@ -125,7 +121,7 @@ Papa.parse('data/data_centers.csv', {
 
       const { fill, stroke } = statusStyle(row['Status']);
 
-      const marker = L.circleMarker([jitter(lat), jitter(lng)], {
+      const marker = L.circleMarker([lat,lng], {
         pane: 'centers',
         radius: acreRadius(row['Acres']),
         fillColor: fill,
