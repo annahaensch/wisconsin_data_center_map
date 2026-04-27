@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this data or map, please cite it as below."
+title: "Wisconsin Data Center Map"
+authors:
+  - family-names: Haensch
+    given-names: Anna
+    email: anna.haensch@wisc.edu
+    affiliation: "UW–Madison Data Science Institute"
+repository-code: "https://github.com/annahaensch/wisconsin_data_center_map"
+url: "https://annahaensch.github.io/wisconsin_data_center_map"
+abstract: >
+  An interactive web map of data centers in Wisconsin, including operational,
+  under-construction, planned, and canceled facilities. Data are collected
+  manually and geocoded from public sources.
+keywords:
+  - data centers
+  - Wisconsin
+  - infrastructure
+  - interactive map
+license: MIT
+date-released: "2026-04-27"

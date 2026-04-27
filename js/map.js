@@ -147,7 +147,7 @@ Papa.parse('data/data_centers.csv', {
         fillOpacity: 0.9,
       }).addTo(map);
 
-      const owners  = group.map(r => r['Owner'] || '—').join(', ');
+      const owners  = group.map(r => r['Owner'] || '—').join('<br>');
       const address = first['Address'] || '—';
       const town    = first['Town']    || '—';
 
