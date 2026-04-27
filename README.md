@@ -1,6 +1,8 @@
 # Wisconsin Data Centers
 
-This is an interactive web map of data centers in Wisconsin based on information I've been collecting and aggregating manually. If you see something wrong or missing, please email me anna.haensch@wisc.edu. The map was created with the help of Claude Code. You are free to use this data and map as you wish, but if you do, please cite it as follows:
+This is an interactive web map of data centers in Wisconsin based on information I've been collecting and aggregating manually. If you see something wrong or missing, please email me anna.haensch@wisc.edu. The map was created with the help of Claude Code. 
+
+You are free to use this data and map as you wish, but please cite it as follows (and feel free to let me know so that I feel useful!):
 
 ```
 Haensch, A. (2026). Wisconsin Data Center Map. https://github.com/annahaensch/wisconsin_data_center_map
