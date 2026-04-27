@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------------------
 const map = L.map('map', { zoomControl: true }).setView([44.5, -89.5], 7);
 
+map.createPane('waterbodies'); map.getPane('waterbodies').style.zIndex = 150;
 map.createPane('counties');   map.getPane('counties').style.zIndex   = 200;
 map.createPane('powerlines'); map.getPane('powerlines').style.zIndex = 300;
 map.createPane('centers');    map.getPane('centers').style.zIndex    = 400;
@@ -37,6 +38,25 @@ fetch('data/last_updated.txt')
   .then(date => {
     const el = document.getElementById('last-updated');
     if (el) el.textContent = `Data last updated: ${date.trim()}`;
+  });
+
+// ---------------------------------------------------------------------------
+// Waterbodies
+// ---------------------------------------------------------------------------
+let waterbodiesLayer = null;
+
+fetch('data/wi_waterbodies.geojson')
+  .then(r => r.json())
+  .then(data => {
+    waterbodiesLayer = L.geoJSON(data, {
+      pane: 'waterbodies',
+      style: {
+        color: '#7ab8d4',
+        weight: 0.5,
+        fillColor: '#a8d4e8',
+        fillOpacity: 0.6,
+      }
+    }).addTo(map);
   });
 
 // ---------------------------------------------------------------------------
@@ -208,7 +228,19 @@ legend.onAdd = () => {
         <span class="legend-line" style="background:${color}"></span>
         ${label}
       </div>`).join('')}
+    <hr class="legend-sep">
+    <h4>Layers</h4>
+    <div class="legend-row">
+      <input type="checkbox" id="toggle-water" checked>
+      <label for="toggle-water">Water bodies</label>
+    </div>
   `;
   return div;
 };
 legend.addTo(map);
+
+document.getElementById('toggle-water').addEventListener('change', e => {
+  if (waterbodiesLayer) {
+    e.target.checked ? waterbodiesLayer.addTo(map) : map.removeLayer(waterbodiesLayer);
+  }
+});
