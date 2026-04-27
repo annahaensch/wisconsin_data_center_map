@@ -14,10 +14,6 @@ Wisconsin Department of Natural Resources, Bureau of Technology Services. *Count
 
 U.S. Fish and Wildlife Service. *US Electric Power Transmission Lines*. USFWS Open Data Portal. Last modified June 2025. Retrieved April 2026. [https://gis-fws.opendata.arcgis.com/datasets/fws::us-electric-power-transmission-lines](https://gis-fws.opendata.arcgis.com/datasets/fws::us-electric-power-transmission-lines)
 
-### 24K Hydro Waterbodies (Open Water)
-
-Wisconsin Department of Natural Resources, Bureau of Technology Services. *24K Hydro Waterbodies (Open Water)*. Wisconsin DNR Open Data Portal. Retrieved April 2026. [https://data-wi-dnr.opendata.arcgis.com/datasets/31f1f67253074ef9afe46cd905bff07a_1](https://data-wi-dnr.opendata.arcgis.com/datasets/31f1f67253074ef9afe46cd905bff07a_1)
-
 ## Using and Citing this Project
 You are free to use this data and map as you wish under the MIT License, but please cite it as follows:
 
