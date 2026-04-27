@@ -37,6 +37,14 @@ header h1 {
   margin-left: auto;
 }
 
+.last-updated a,
+.last-updated a:visited,
+.last-updated a:hover,
+.last-updated a:active {
+  color: #fff;
+  text-decoration: underline;
+}
+
 #map {
   flex: 1;
 }
