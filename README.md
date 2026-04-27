@@ -1,6 +1,6 @@
 # Wisconsin Data Center Map
 
-An interactive web map of data centers in Wisconsin, served via GitHub Pages.
+This is an interactive web map of data centers in Wisconsin based on information I've been collecting personally. If you see something wrong or missing, please email me anna.haensch@wisc.edu.
 
 ## Project Structure
 
@@ -24,7 +24,6 @@ Haensch, Anna. *Wisconsin Data Centers*. UW–Madison Data Science Institute. Ap
 Wisconsin Department of Natural Resources, Bureau of Technology Services. *County Boundaries 24K*. Wisconsin DNR Open Data Portal. Retrieved April 2026. [https://data-wi-dnr.opendata.arcgis.com/datasets/8b8a0896378449538cf1138a969afbc6_3](https://data-wi-dnr.opendata.arcgis.com/datasets/8b8a0896378449538cf1138a969afbc6_3)
 
 - **License:** [CC BY-SA](https://creativecommons.org/licenses/by-sa/4.0/)
-- **Coordinate system:** Wisconsin Transverse Mercator (WTM83/NAD83), EPSG:3071
 
 ### US Electric Power Transmission Lines
 
