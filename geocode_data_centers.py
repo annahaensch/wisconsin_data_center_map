@@ -11,12 +11,16 @@ Run by the GitHub Actions workflow. Can also be run locally.
 """
 
 import csv
+import hashlib
 import io
 import sys
 import time
 import urllib.request
 
 from geopy.geocoders import Nominatim
+
+# Fields excluded from the row fingerprint used for cache invalidation.
+_SKIP = {"Latitude", "Longitude"}
 
 SHEET_URL = (
     "https://docs.google.com/spreadsheets/d/"
@@ -39,20 +43,29 @@ def geocode(query: str):
     return None, None
 
 
+def row_fingerprint(row: dict) -> str:
+    """MD5 of all non-lat/lon fields. Cache is invalidated when any other
+    field changes, triggering a fresh geocode for that row."""
+    content = "|".join(
+        f"{k}={row.get(k, '').strip()}"
+        for k in sorted(row.keys())
+        if k not in _SKIP
+    )
+    return hashlib.md5(content.encode()).hexdigest()
+
+
 def load_cache(path: str) -> dict:
-    """Load existing geocoded lat/lon keyed by (address, town)."""
+    """Load existing geocoded lat/lon keyed by row fingerprint."""
     cache = {}
     try:
         with open(path, newline="", encoding="utf-8") as f:
             for row in csv.DictReader(f):
-                addr = row.get("Address", "").strip()
-                town = row.get("Town", "").strip()
-                lat  = row.get("Latitude", "").strip()
-                lon  = row.get("Longitude", "").strip()
+                lat = row.get("Latitude", "").strip()
+                lon = row.get("Longitude", "").strip()
                 if lat and lon:
                     try:
                         float(lat), float(lon)
-                        cache[(addr, town)] = (lat, lon)
+                        cache[row_fingerprint(row)] = (lat, lon)
                     except ValueError:
                         pass
     except FileNotFoundError:
@@ -78,15 +91,15 @@ def main():
     failed = 0
 
     for row in rows:
+        fp   = row_fingerprint(row)
         addr = row.get("Address", "").strip()
         town = row.get("Town", "").strip()
-        key  = (addr, town)
 
-        if key in cache:
-            row["Latitude"], row["Longitude"] = cache[key]
+        if fp in cache:
+            row["Latitude"], row["Longitude"] = cache[fp]
             continue
 
-        # Need to geocode this address.
+        # Row is new or changed — geocode it.
         lat = lon = None
 
         if addr and addr.lower() != "unknown":
@@ -102,7 +115,7 @@ def main():
         if lat is not None:
             row["Latitude"]  = str(round(lat, 4))
             row["Longitude"] = str(round(lon, 4))
-            cache[key] = (row["Latitude"], row["Longitude"])
+            cache[fp] = (row["Latitude"], row["Longitude"])
             new_geocodes += 1
         else:
             row["Latitude"]  = ""

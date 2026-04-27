@@ -114,9 +114,30 @@ Papa.parse('data/data_centers.csv', {
       return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
     });
 
+    // Spread co-located markers in a small circle so each is visible.
+    const coordKey = r => {
+      const lat = parseFloat(r['Latitude']);
+      const lng = parseFloat(r['Longitude']);
+      return isNaN(lat) || isNaN(lng) ? null : `${lat.toFixed(4)},${lng.toFixed(4)}`;
+    };
+    const groups = {};
     sorted.forEach(row => {
-      const lat = parseFloat(row['Latitude']);
-      const lng = parseFloat(row['Longitude']);
+      const key = coordKey(row);
+      if (key) (groups[key] = groups[key] || []).push(row);
+    });
+    const JITTER = 0.012; // ~1.3 km — invisible at state zoom, separates at city zoom
+    Object.values(groups).forEach(group => {
+      if (group.length < 2) return;
+      group.forEach((row, i) => {
+        const angle = (2 * Math.PI * i) / group.length;
+        row._jLat = JITTER * Math.sin(angle);
+        row._jLng = JITTER * Math.cos(angle);
+      });
+    });
+
+    sorted.forEach(row => {
+      const lat = parseFloat(row['Latitude']) + (row._jLat || 0);
+      const lng = parseFloat(row['Longitude']) + (row._jLng || 0);
       if (isNaN(lat) || isNaN(lng)) return;
 
       const { fill, stroke } = statusStyle(row['Status']);
