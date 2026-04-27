@@ -1,8 +1,6 @@
 # Wisconsin Data Centers
 
-This is an interactive web map of data centers in Wisconsin based on information I've been collecting and aggregating manually. The map was created with the help of Claude Code. 
-
-
+This projects hosts data and an interactive map of data centers in Wisconsin based on information I've been collecting and aggregating manually. The map was created with the help of Claude Code. 
 
 ## Other Data Used in the Project
 
@@ -17,7 +15,7 @@ Wisconsin Department of Natural Resources, Bureau of Technology Services. *Count
 U.S. Fish and Wildlife Service. *US Electric Power Transmission Lines*. USFWS Open Data Portal. Last modified June 2025. Retrieved April 2026. [https://gis-fws.opendata.arcgis.com/datasets/fws::us-electric-power-transmission-lines](https://gis-fws.opendata.arcgis.com/datasets/fws::us-electric-power-transmission-lines)
 
 ## Using and Citing this Project
-You are free to use this data and map as you wish, but please cite it as follows:
+You are free to use this data and map as you wish under the MIT License, but please cite it as follows:
 
 ```
 Haensch, A. (2026). Wisconsin Data Center Map. https://github.com/annahaensch/wisconsin_data_center_map
