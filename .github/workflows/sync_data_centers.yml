@@ -15,12 +15,19 @@ jobs:
           ref: main
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Fetch CSV from Google Sheets
-        run: |
-          curl -L \
-            "https://docs.google.com/spreadsheets/d/1j_A4BvCEKeB9IVvAbkyLEdOE3UKiVoPjt_s4WmaWaCo/gviz/tq?tqx=out:csv&sheet=Sheet1" \
-            -o data/data_centers.csv
-          date -u +"%B %-d, %Y" > data/last_updated.txt
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install geopy
+
+      - name: Fetch and geocode data centers
+        run: python geocode_data_centers.py
+
+      - name: Update last_updated timestamp
+        run: date -u +"%B %-d, %Y" > data/last_updated.txt
 
       - name: Commit and push if changed
         run: |
@@ -30,6 +37,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Sync data_centers.csv from Google Sheets"
+            git commit -m "Sync and geocode data_centers.csv from Google Sheets"
             git push origin main
           fi
