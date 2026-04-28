@@ -3,7 +3,7 @@
 // ---------------------------------------------------------------------------
 const map = L.map('map', { zoomControl: true }).setView([44.5, -89.5], 7);
 
-map.createPane('waterbodies'); map.getPane('waterbodies').style.zIndex = 150;
+map.createPane('waterbodies'); map.getPane('waterbodies').style.zIndex = 250;
 map.createPane('counties');   map.getPane('counties').style.zIndex   = 200;
 map.createPane('powerlines'); map.getPane('powerlines').style.zIndex = 300;
 map.createPane('centers');    map.getPane('centers').style.zIndex    = 400;
