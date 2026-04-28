@@ -206,38 +206,57 @@ legend.onAdd = () => {
   ];
 
   div.innerHTML = `
-    <h4>Status</h4>
-    ${STATUS_LEGEND.map(({ label, fill, stroke }) => `
+    <div id="legend-header">
+      <h4>Legend</h4>
+      <button id="legend-toggle" title="Toggle legend">−</button>
+    </div>
+    <div id="legend-body">
+      <h4>Status</h4>
+      ${STATUS_LEGEND.map(({ label, fill, stroke }) => `
+        <div class="legend-row">
+          <span class="legend-dot" style="background:${fill};border-color:${stroke}"></span>
+          ${label}
+        </div>`).join('')}
+      <hr class="legend-sep">
+      <h4>Size</h4>
+      ${SIZES.map(({ r, label }) => `
+        <div class="legend-row" style="align-items:center;min-height:${r * 2 + 4}px">
+          <span style="display:flex;align-items:center;justify-content:center;width:28px;flex-shrink:0">
+            <span style="display:inline-block;width:${r * 2}px;height:${r * 2}px;border-radius:50%;background:#999;border:1.5px solid #555"></span>
+          </span>
+          ${label}
+        </div>`).join('')}
+      <hr class="legend-sep">
+      <h4>Transmission (kV)</h4>
+      ${Object.entries(VOLT_COLORS).map(([label, color]) => `
+        <div class="legend-row">
+          <span class="legend-line" style="background:${color}"></span>
+          ${label}
+        </div>`).join('')}
+      <hr class="legend-sep">
+      <h4>Layers</h4>
       <div class="legend-row">
-        <span class="legend-dot" style="background:${fill};border-color:${stroke}"></span>
-        ${label}
-      </div>`).join('')}
-    <hr class="legend-sep">
-    <h4>Size</h4>
-    ${SIZES.map(({ r, label }) => `
-      <div class="legend-row" style="align-items:center;min-height:${r * 2 + 4}px">
-        <span style="display:flex;align-items:center;justify-content:center;width:28px;flex-shrink:0">
-          <span style="display:inline-block;width:${r * 2}px;height:${r * 2}px;border-radius:50%;background:#999;border:1.5px solid #555"></span>
-        </span>
-        ${label}
-      </div>`).join('')}
-    <hr class="legend-sep">
-    <h4>Transmission (kV)</h4>
-    ${Object.entries(VOLT_COLORS).map(([label, color]) => `
-      <div class="legend-row">
-        <span class="legend-line" style="background:${color}"></span>
-        ${label}
-      </div>`).join('')}
-    <hr class="legend-sep">
-    <h4>Layers</h4>
-    <div class="legend-row">
-      <input type="checkbox" id="toggle-water" checked>
-      <label for="toggle-water">Water bodies</label>
+        <input type="checkbox" id="toggle-water" checked>
+        <label for="toggle-water">Water bodies</label>
+      </div>
     </div>
   `;
   return div;
 };
 legend.addTo(map);
+
+// Collapse legend by default on mobile
+if (window.innerWidth <= 600) {
+  document.getElementById('legend').classList.add('collapsed');
+  document.getElementById('legend-toggle').textContent = '+';
+}
+
+document.getElementById('legend-toggle').addEventListener('click', () => {
+  const el  = document.getElementById('legend');
+  const btn = document.getElementById('legend-toggle');
+  el.classList.toggle('collapsed');
+  btn.textContent = el.classList.contains('collapsed') ? '+' : '−';
+});
 
 document.getElementById('toggle-water').addEventListener('change', e => {
   if (waterbodiesLayer) {

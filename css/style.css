@@ -102,6 +102,57 @@ header h1 {
   letter-spacing: 0.04em;
 }
 
+#legend-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.3rem;
+}
+
+#legend-header h4 {
+  margin-bottom: 0;
+}
+
+#legend-toggle {
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #1a1a2e;
+  padding: 0 0.35rem;
+  line-height: 1.4;
+  margin-left: 0.5rem;
+}
+
+#legend.collapsed #legend-body {
+  display: none;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15rem;
+    padding: 0.4rem 0.75rem;
+  }
+
+  header h1 {
+    white-space: normal;
+  }
+
+  .last-updated {
+    margin-left: 0;
+  }
+
+  #legend {
+    bottom: 1rem;
+    right: 0.5rem;
+    min-width: 0;
+  }
+}
+
 .legend-row {
   display: flex;
   align-items: center;
