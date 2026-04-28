@@ -1,3 +1,7 @@
 .DS_Store
+.ipynb_checkpoints/
 data/US_Electric_Power_Transmission_Lines/
+data/24k_Hydro_Waterbodies_(Open_Water)/
 clip_power_lines.py
+notebooks/
+requirements.txt
