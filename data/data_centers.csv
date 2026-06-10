@@ -6,7 +6,7 @@ Name,Owner,Address,Town,Date,Status,Acres,Power Capacity (MW),Notes,Links,,Latit
 ,Aventus 715,901 Commerce Dr,Marshfield,,Operational,0.45,,,https://aventusdatacenters.com/aventus-715-tour/,,44.6322,-90.1735
 ,Aventus Lakes,7901 W. Clinton Ave.,Milwaukee,,Operational,0.59,,,https://aventusdatacenters.com/aventus-lakes/,,43.1513,-88.0097
 ,Balloonist LLC,County Rd. B,Menomonie,,Paused,320,,,https://www.datacenterdynamics.com/en/news/data-center-development-in-menomonie-wisconsin-delayed/,,44.888,-91.8871
-Beaver Dam Data Center Campus,Meta,8773 County Road A,Beaver Dam,,Under Construction,520,,owned by Meta,,,43.5064,-88.8031
+Beaver Dam Data Center Campus,Meta,8773 County Road A,Beaver Dam,,Under Construction,520,400,owned by Meta,,,43.5064,-88.8031
 ,"Cogent Communications, Inc.",324 E. Wisconsin Ave.,Milwaukee,,Operational,0.01,0.1,,,,43.039,-87.9069
 Congent Data Center - Milwaukee 2,"Cogent Communications, Inc.",2915 South 5th Ct.,Milwaukee,,Operational,0.13,,,,,42.9912,-87.9165
 ,CyberLynk Network Inc.,10125 52nd St.,Franklin,,Operational,-1,,,,,42.8619,-87.9828
@@ -45,6 +45,7 @@ Lighthouse,Vantage Data Centers,Interstate 43,Port Washington,,Under Constructio
 ,WIN Technology,800 Wisconsin Street,Eau Claire,,Operational,0.09,1,,https://www.datacentermap.com/usa/wisconsin/eau-claire/win-eau-claire-data-center/specs/,,44.8157,-91.495
 ,WIN Technology,417 Pine St.,Green Bay,,Operational,0.05,0.25,,https://www.datacentermap.com/usa/wisconsin/green-bay/win-green-bay-dc/specs/,,44.5152,-88.0116
 ,Windstream,13935 Bishops Dr.,Brookfield,,Operational,0.13,,,https://www.datacenterdynamics.com/en/news/windstream-occupied-data-center-at-risk-of-foreclosure-in-milwaukee-wisconsin/,,43.0277,-88.0862
-Project Cornmaze,Cambrin LLC (likely shell/holding company for Meta),3612 S Prairie Ave. ,Beloit,,Planned,430,,,https://www.beloitdailynews.com/news/business-news/town-of-beloit-has-signed-preliminary-deal-for-meta-data-center/article_629acdaf-4321-49cd-8d2a-f48ae430ade3.html,,42.5083,-89.0318
+Project Cornmaze 1,Panattoni,3612 S Prairie Ave. ,Beloit,,Planned,430,,,https://www.beloitdailynews.com/news/business-news/town-of-beloit-has-signed-preliminary-deal-for-meta-data-center/article_629acdaf-4321-49cd-8d2a-f48ae430ade3.html,,42.5083,-89.0318
 ,,,Cassville,,Planned,500,,,https://wisconsinwatch.org/2026/04/wisconsin-data-center-driftless-area-new-details-emerge-grant-county-cassville/,,42.7144,-90.9908
 ,PCH WI Holdings LLC,950 Fourth Ave. N.,Wisconsin Rapids,,Planned,209,150,,https://www.wisconsinrapidstribune.com/story/money/2026/04/30/wisconsin-rapids-postpones-may-4-public-hearing-for-proposed-data-center/89882146007/,,44.3918,-89.8229
+Project Cornmaze 2,Panattoni,3525 S County Rd G,Turtle,,Planned,200,,,https://www.panattoni.com/the-beloit-data-center-project-faq/,,42.5477,-88.9403
