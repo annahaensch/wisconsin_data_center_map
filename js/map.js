@@ -187,10 +187,11 @@ Papa.parse('data/data_centers.csv', {
           </div>`;
       }).join('<hr class="dc-divider">');
 
-      marker.bindTooltip(
-        `<div class="dc-tooltip">${entries}</div>`,
-        { sticky: true, opacity: 1, className: '', interactive: true }
-      );
+      // Remove tooltip for now.
+      // marker.bindTooltip(
+      //  `<div class="dc-tooltip">${entries}</div>`,
+      //  { sticky: true, opacity: 1, className: '', interactive: true }
+      //);
 
       // Tooltips can't be clicked into (the cursor must leave the marker
       // to reach a link, which closes the tooltip), so also bind a popup
