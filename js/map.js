@@ -191,6 +191,11 @@ Papa.parse('data/data_centers.csv', {
         `<div class="dc-tooltip">${entries}</div>`,
         { sticky: true, opacity: 1, className: '', interactive: true }
       );
+
+      // Tooltips can't be clicked into (the cursor must leave the marker
+      // to reach a link, which closes the tooltip), so also bind a popup
+      // with the same content for clicking through to notes links.
+      marker.bindPopup(`<div class="dc-tooltip">${entries}</div>`);
     });
   }
 });

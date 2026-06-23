@@ -83,6 +83,16 @@ header h1 {
   color: #2a6ebb;
 }
 
+/* The popup wrapper already supplies background/shadow/padding, so the
+   tooltip styles just need to provide text formatting inside it. */
+.leaflet-popup-content .dc-tooltip {
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  min-width: 0;
+}
+
 .dc-tooltip .dc-divider {
   border: none;
   border-top: 1px solid #eee;
