@@ -170,6 +170,7 @@ Papa.parse('data/data_centers.csv', {
       const entries = group.map(r => {
         const name    = r['Name']  || '';
         const owner   = r['Owner'] || '—';
+        const heading = name ? `${owner} - ${name}` : owner;
         const address = r['Address'] || '';
         const town    = r['Town']    || '';
         const addressLine = [address, town ? `${town}, WI` : ''].filter(Boolean).join(', ');
@@ -180,8 +181,7 @@ Papa.parse('data/data_centers.csv', {
 
         return `
           <div class="dc-entry">
-            ${name ? `<div class="name">${name}</div>` : ''}
-            <div class="owner">${owner}</div>
+            <div class="owner">${heading}</div>
             ${addressLine ? `<div class="address">${addressLine}</div>` : ''}
             ${notes ? `<div class="notes">${notes}${linkHtml}</div>` : ''}
           </div>`;

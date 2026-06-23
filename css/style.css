@@ -61,11 +61,6 @@ header h1 {
   min-width: 160px;
 }
 
-.dc-tooltip .name {
-  font-weight: 600;
-  color: #1a1a2e;
-}
-
 .dc-tooltip .owner {
   font-weight: 700;
   font-size: 0.88rem;
