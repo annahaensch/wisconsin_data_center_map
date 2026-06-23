@@ -4,6 +4,9 @@ Fetch data_centers CSV from Google Sheets, geocode any rows missing lat/lon
 using "Address, Town, Wisconsin, USA" via Nominatim, and write the result to
 data/data_centers.csv.
 
+Rows with both Approx_Lat and Approx_Lon filled in use those coordinates
+directly instead of geocoding (for sites known only by bounding roads).
+
 Geocodes are cached from the existing CSV so each address is only looked up
 once. For addresses that can't be resolved, falls back to the town centroid.
 
@@ -102,7 +105,17 @@ def main():
         # Row is new or changed — geocode it.
         lat = lon = None
 
-        if addr and addr.lower() != "unknown":
+        approx_lat = row.get("Approx_Lat", "").strip()
+        approx_lon = row.get("Approx_Lon", "").strip()
+        if approx_lat and approx_lon:
+            try:
+                lat, lon = float(approx_lat), float(approx_lon)
+                print(f"  Using manual override: {lat}, {lon}")
+            except ValueError:
+                print(f"  WARNING: Bad Approx_Lat/Approx_Lon for '{addr}, {town}'", file=sys.stderr)
+                lat = lon = None
+
+        if lat is None and addr and addr.lower() != "unknown":
             query = f"{addr}, {town}, Wisconsin, USA"
             print(f"  Geocoding: {query}")
             lat, lon = geocode(query)
