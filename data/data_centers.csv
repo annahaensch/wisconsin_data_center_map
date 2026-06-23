@@ -23,17 +23,17 @@ Milwaukee Data Center,Expedient Data Centers,4777 Ironwood Dr.,Franklin,Operatio
 MQS5,ISCorp,10235 N. Port Washington Rd.,Mequon,Operational,0.45,,,,,43.2059,-87.9244
 ,Lumen,612 W. Main St.,Madison,Operational,-1,,,,,43.0678,-89.3923
 Milwaukee 1 Data Center,Lumen,3235 Intertech Dr.,Brookfield,Operational,0.11,,,,,43.0776,-88.1848
-Area 3B,Microsoft,East of County Rd. H between Braun Rd. and County Line Rd,Mt. Pleasant,Operational,315,400,,,,42.6771,-87.9269
+Fairwater,Microsoft,East of County Rd. H between Braun Rd. and County Line Rd,Mt. Pleasant,Operational,215,400,"Operational as of June 23, 2026.",https://news.microsoft.com/source/2026/06/23/microsoft-completes-construction-on-first-datacenter-facility-in-mount-pleasant-wisconsin/,,42.6771,-87.9269
 Area 3A,Microsoft,West of 90th St. between Braun Rd. and County Line Rd.,Mt. Pleasant,Under Construction,115,500,,,,42.6736,-87.8999
-Durand Avenue Campus,Microsoft,12023 Durand Ave.,Mt. Pleasant,Under Construction,791,,,,,42.6984,-87.9304
-International Drive Campus,Microsoft,2700 International Drive,Mt. Pleasant,Under Construction,530,,,,,42.7112,-87.9339
+Durand Avenue Campus,Microsoft,12023 Durand Ave.,Mt. Pleasant,Under Construction,791,,"Project approved by Mt. Pleasant Village Board on Jan. 27, 2026.",https://www.wpr.org/news/mount-pleasant-approves-site-plans-microsoft-data-center-expansion,,42.7192,-87.8543
+International Drive Campus,Microsoft,2700 International Drive,Mt. Pleasant,Under Construction,530,,"Project approved by Mt. Pleasant Village Board on Jan. 27, 2026.",https://www.wpr.org/news/mount-pleasant-approves-site-plans-microsoft-data-center-expansion,,42.7112,-87.9339
 Project Nova Campus,Microsoft,Botting Rd.,Caledonia,Canceled,244,,"Project dropped by developers on Oct. 8, 2025 after community pushback.",https://www.wpr.org/news/microsoft-caledonia-data-center-site-ozaukee-county,,42.8211,-87.8501
 ,Netsonic,1263 Main Street,Green Bay,Operational,-1,,,,,44.5113,-87.9971
 ,Netwurx,324 E. Wisconsin Ave.,Milwaukee,Operational,-1,,,,,43.039,-87.9069
 ,New Era Technology,2201 E. Enterprise Ave.,Appleton,Operational,-1,,,,,44.2995,-88.3665
 ,New Era Technology,10400 W. Innovation Dr.,Milwaukee,Operational,-1,,,,,43.0386,-87.9091
 ,Offsite LLC,3618 7th Ave.,Kenosha,Operational,0.68,5,,,,42.6048,-87.8206
-,QTS Data Centers,,DeForest,Canceled,650,1600,"Project dropped on Jan. 27, 2026 after it was determined ""not feasible"" by DeForest Village Board.",https://www.wpr.org/news/deforest-wont-move-forward-data-center,,43.2478,-89.3437
+,QTS,,DeForest,Canceled,650,1600,"Project dropped on Jan. 27, 2026 after it was determined ""not feasible"" by DeForest Village Board.",https://www.wpr.org/news/deforest-wont-move-forward-data-center,,43.2478,-89.3437
 ,SupraNet Communications,800 Excelsior Dr.,Madison,Operational,-1,,,,,43.0745,-89.525
 ,Tier Point,3701 W. Burnham St.,Milwaukee,Operational,0.64,0.5,,,,43.0095,-87.9611
 ,TSR Solutions,324 E. Wisconsin Ave.,Milwaukee,Operational,0.11,,,,,43.039,-87.9069
