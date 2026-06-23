@@ -59,7 +59,11 @@ header h1 {
   font-size: 0.82rem;
   line-height: 1.5;
   min-width: 160px;
-  pointer-events: none;
+}
+
+.dc-tooltip .name {
+  font-weight: 600;
+  color: #1a1a2e;
 }
 
 .dc-tooltip .owner {
@@ -69,13 +73,25 @@ header h1 {
   color: #1a1a2e;
 }
 
-.dc-tooltip .town {
-  color: #555;
-}
-
 .dc-tooltip .address {
   color: #777;
   font-size: 0.78rem;
+}
+
+.dc-tooltip .notes {
+  color: #555;
+  font-size: 0.78rem;
+  margin-top: 0.2rem;
+}
+
+.dc-tooltip .notes a {
+  color: #2a6ebb;
+}
+
+.dc-tooltip .dc-divider {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 0.4rem 0;
 }
 
 /* Legend */

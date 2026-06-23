@@ -167,17 +167,29 @@ Papa.parse('data/data_centers.csv', {
         fillOpacity: 0.9,
       }).addTo(map);
 
-      const owners  = group.map(r => r['Owner'] || '—').join('<br>');
-      const address = first['Address'] || '—';
-      const town    = first['Town']    || '—';
+      const entries = group.map(r => {
+        const name    = r['Name']  || '';
+        const owner   = r['Owner'] || '—';
+        const address = r['Address'] || '';
+        const town    = r['Town']    || '';
+        const addressLine = [address, town ? `${town}, WI` : ''].filter(Boolean).join(', ');
+
+        const notes = (r['Notes'] || '').trim();
+        const link  = (r['Links'] || '').split(',').map(s => s.trim()).filter(Boolean)[0];
+        const linkHtml = link ? ` <a href="${link}" target="_blank" rel="noopener noreferrer">(link)</a>` : '';
+
+        return `
+          <div class="dc-entry">
+            ${name ? `<div class="name">${name}</div>` : ''}
+            <div class="owner">${owner}</div>
+            ${addressLine ? `<div class="address">${addressLine}</div>` : ''}
+            ${notes ? `<div class="notes">${notes}${linkHtml}</div>` : ''}
+          </div>`;
+      }).join('<hr class="dc-divider">');
 
       marker.bindTooltip(
-        `<div class="dc-tooltip">
-           <div class="owner">${owners}</div>
-           <div class="town">${town}</div>
-           <div class="address">${address}</div>
-         </div>`,
-        { sticky: true, opacity: 1, className: '' }
+        `<div class="dc-tooltip">${entries}</div>`,
+        { sticky: true, opacity: 1, className: '', interactive: true }
       );
     });
   }
