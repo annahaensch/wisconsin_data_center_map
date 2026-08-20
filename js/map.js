@@ -106,7 +106,7 @@ Promise.all([
       layer.bindPopup(`
         <div class="dc-tooltip">
           <div class="owner">${feature.properties.COUNTY_NAME} County</div>
-          <div class="notes">Data center moratorium enacted${notes ? ` &mdash; ${notes}` : ''}${linkHtml}</div>
+          <div class="notes">${notes ? ` &mdash; ${notes}` : ''}${linkHtml}</div>
         </div>
       `);
     }
