@@ -195,6 +195,14 @@ header h1 {
   flex-shrink: 0;
 }
 
+.legend-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  border: 1.5px solid transparent;
+}
+
 .legend-sep {
   margin: 0.35rem 0 0.2rem;
   border: none;

@@ -3,10 +3,11 @@
 // ---------------------------------------------------------------------------
 const map = L.map('map', { zoomControl: true }).setView([44.5, -89.5], 7);
 
-map.createPane('waterbodies'); map.getPane('waterbodies').style.zIndex = 250;
-map.createPane('counties');   map.getPane('counties').style.zIndex   = 200;
-map.createPane('powerlines'); map.getPane('powerlines').style.zIndex = 300;
-map.createPane('centers');    map.getPane('centers').style.zIndex    = 400;
+map.createPane('waterbodies');  map.getPane('waterbodies').style.zIndex  = 250;
+map.createPane('counties');    map.getPane('counties').style.zIndex    = 200;
+map.createPane('moratoriums'); map.getPane('moratoriums').style.zIndex = 220;
+map.createPane('powerlines');  map.getPane('powerlines').style.zIndex  = 300;
+map.createPane('centers');     map.getPane('centers').style.zIndex     = 400;
 
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
@@ -60,21 +61,57 @@ fetch('data/wi_waterbodies.geojson')
   });
 
 // ---------------------------------------------------------------------------
-// County boundaries
+// County boundaries + moratoriums
 // ---------------------------------------------------------------------------
-fetch('data/County_Boundaries_24K/County_Boundaries_24K.geojson')
-  .then(r => r.json())
-  .then(data => {
-    L.geoJSON(data, {
-      pane: 'counties',
-      style: {
-        color: '#8a9bb0',
-        weight: 0.8,
-        fillColor: '#f5f5f0',
-        fillOpacity: 0.3,
-      }
-    }).addTo(map);
+let moratoriumLayer = null;
+
+Promise.all([
+  fetch('data/County_Boundaries_24K/County_Boundaries_24K.geojson').then(r => r.json()),
+  fetch('data/moratoriums.csv').then(r => r.text()),
+]).then(([counties, moratoriumsCsv]) => {
+  L.geoJSON(counties, {
+    pane: 'counties',
+    style: {
+      color: '#8a9bb0',
+      weight: 0.8,
+      fillColor: '#f5f5f0',
+      fillOpacity: 0.3,
+    }
+  }).addTo(map);
+
+  // County-level moratorium status, keyed by county name.
+  const enacted = new Map();
+  Papa.parse(moratoriumsCsv, { header: true, skipEmptyLines: true }).data.forEach(row => {
+    if ((row['Status'] || '').trim() === 'Enacted') {
+      enacted.set((row['County'] || '').trim(), row);
+    }
   });
+
+  const moratoriumFeatures = counties.features.filter(f => enacted.has(f.properties.COUNTY_NAME));
+
+  moratoriumLayer = L.geoJSON({ type: 'FeatureCollection', features: moratoriumFeatures }, {
+    pane: 'moratoriums',
+    style: {
+      color: '#b30000',
+      weight: 1.2,
+      fillColor: '#e34a33',
+      fillOpacity: 0.4,
+    },
+    onEachFeature: (feature, layer) => {
+      const row   = enacted.get(feature.properties.COUNTY_NAME);
+      const notes = (row['Notes'] || '').trim();
+      const link  = (row['Link']  || '').trim();
+      const linkHtml = link ? ` <a href="${link}" target="_blank" rel="noopener noreferrer">(link)</a>` : '';
+
+      layer.bindPopup(`
+        <div class="dc-tooltip">
+          <div class="owner">${feature.properties.COUNTY_NAME} County</div>
+          <div class="notes">Data center moratorium enacted${notes ? ` &mdash; ${notes}` : ''}${linkHtml}</div>
+        </div>
+      `);
+    }
+  }).addTo(map);
+});
 
 // ---------------------------------------------------------------------------
 // Power lines
@@ -252,10 +289,20 @@ legend.onAdd = () => {
           ${label}
         </div>`).join('')}
       <hr class="legend-sep">
+      <h4>County Moratoriums</h4>
+      <div class="legend-row">
+        <span class="legend-swatch" style="background:#e34a33;border-color:#b30000"></span>
+        Enacted
+      </div>
+      <hr class="legend-sep">
       <h4>Layers</h4>
       <div class="legend-row">
         <input type="checkbox" id="toggle-water" checked>
         <label for="toggle-water">Water bodies</label>
+      </div>
+      <div class="legend-row">
+        <input type="checkbox" id="toggle-moratorium" checked>
+        <label for="toggle-moratorium">County moratoriums</label>
       </div>
     </div>
   `;
@@ -279,5 +326,11 @@ document.getElementById('legend-toggle').addEventListener('click', () => {
 document.getElementById('toggle-water').addEventListener('change', e => {
   if (waterbodiesLayer) {
     e.target.checked ? waterbodiesLayer.addTo(map) : map.removeLayer(waterbodiesLayer);
+  }
+});
+
+document.getElementById('toggle-moratorium').addEventListener('change', e => {
+  if (moratoriumLayer) {
+    e.target.checked ? moratoriumLayer.addTo(map) : map.removeLayer(moratoriumLayer);
   }
 });
