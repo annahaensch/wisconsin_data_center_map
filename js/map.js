@@ -67,7 +67,7 @@ let moratoriumLayer = null;
 
 Promise.all([
   fetch('data/County_Boundaries_24K/County_Boundaries_24K.geojson').then(r => r.json()),
-  fetch('data/moratoriums.csv').then(r => r.text()),
+  fetch('data/moratoriums.csv', { cache: 'no-store' }).then(r => r.text()),
 ]).then(([counties, moratoriumsCsv]) => {
   L.geoJSON(counties, {
     pane: 'counties',
