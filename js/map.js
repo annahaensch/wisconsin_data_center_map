@@ -98,15 +98,21 @@ Promise.all([
       fillOpacity: 0.4,
     },
     onEachFeature: (feature, layer) => {
-      const row   = enacted.get(feature.properties.COUNTY_NAME);
-      const notes = (row['Notes'] || '').trim();
-      const link  = (row['Link']  || '').trim();
+      const row      = enacted.get(feature.properties.COUNTY_NAME);
+      const duration = (row['Duration']       || '').trim();
+      const body     = (row['Approving Body'] || '').trim();
+      const date     = (row['Date Enacted']   || '').trim();
+      const notes    = (row['Notes']          || '').trim();
+      const link     = (row['Link']           || '').trim();
+
+      const summary = `${duration ? `${duration} ` : ''}moratorium${body ? ` approved by ${body}` : ''}${date ? ` on ${date}` : ''}.`;
       const linkHtml = link ? ` <a href="${link}" target="_blank" rel="noopener noreferrer">(link)</a>` : '';
 
       layer.bindPopup(`
         <div class="dc-tooltip">
           <div class="owner">${feature.properties.COUNTY_NAME} County</div>
-          <div class="notes">${notes ? `${notes}` : ''}${linkHtml}</div>
+          <div class="notes">${summary}${linkHtml}</div>
+          ${notes ? `<div class="notes">${notes}</div>` : ''}
         </div>
       `);
     }
