@@ -28,9 +28,6 @@ jobs:
       - name: Fetch and geocode data centers
         run: python geocode_data_centers.py
 
-      - name: Update last_updated timestamp
-        run: date -u +"%B %-d, %Y" > data/last_updated.txt
-
       - name: Commit and push if changed
         run: |
           git config user.name "github-actions[bot]"

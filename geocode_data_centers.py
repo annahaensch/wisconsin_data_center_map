@@ -21,6 +21,7 @@ import io
 import sys
 import time
 import urllib.request
+from datetime import datetime, timezone
 
 from geopy.geocoders import Nominatim
 
@@ -37,6 +38,7 @@ SHEET_URL = (
     "/gviz/tq?tqx=out:csv&sheet=Sheet1"
 )
 CSV_PATH = "data/data_centers.csv"
+LAST_UPDATED_PATH = "data/last_updated.txt"
 GEOCODER = Nominatim(user_agent="wi_data_center_map_geocoder/1.0")
 
 
@@ -160,6 +162,9 @@ def main():
         writer.writerows(rows)
 
     print(f"Wrote {len(rows)} rows to {CSV_PATH}.")
+
+    with open(LAST_UPDATED_PATH, "w", encoding="utf-8") as f:
+        f.write(datetime.now(timezone.utc).strftime("%B %-d, %Y") + "\n")
 
 
 if __name__ == "__main__":
