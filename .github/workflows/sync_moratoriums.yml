@@ -1,7 +1,9 @@
 name: Sync Moratoriums from Google Sheets
 
 on:
-  workflow_dispatch:  # Run manually from GitHub Actions tab
+  workflow_dispatch:      # Run manually from GitHub Actions tab
+  schedule:
+    - cron: '0 * * * *'  # Also run hourly, to pick up any sheet edit
 
 jobs:
   sync:
