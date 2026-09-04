@@ -80,32 +80,39 @@ Promise.all([
   }).addTo(map);
 
   // County-level moratorium status, keyed by county name.
-  const enacted = new Map();
+  const MORATORIUM_STATUS = {
+    'Enacted':    { fill: '#e34a33', stroke: '#b30000', verb: 'approved by' },
+    'Introduced': { fill: '#ffd54f', stroke: '#c98a02', verb: 'introduced by' },
+  };
+
+  const moratoriums = new Map();
   Papa.parse(moratoriumsCsv, { header: true, skipEmptyLines: true }).data.forEach(row => {
-    if ((row['Status'] || '').trim() === 'Enacted') {
-      enacted.set((row['County'] || '').trim(), row);
+    const status = (row['Status'] || '').trim();
+    if (MORATORIUM_STATUS[status]) {
+      moratoriums.set((row['County'] || '').trim(), row);
     }
   });
 
-  const moratoriumFeatures = counties.features.filter(f => enacted.has(f.properties.COUNTY_NAME));
+  const moratoriumFeatures = counties.features.filter(f => moratoriums.has(f.properties.COUNTY_NAME));
 
   moratoriumLayer = L.geoJSON({ type: 'FeatureCollection', features: moratoriumFeatures }, {
     pane: 'moratoriums',
-    style: {
-      color: '#b30000',
-      weight: 1.2,
-      fillColor: '#e34a33',
-      fillOpacity: 0.4,
+    style: feature => {
+      const status = (moratoriums.get(feature.properties.COUNTY_NAME)['Status'] || '').trim();
+      const { fill, stroke } = MORATORIUM_STATUS[status];
+      return { color: stroke, weight: 1.2, fillColor: fill, fillOpacity: 0.4 };
     },
     onEachFeature: (feature, layer) => {
-      const row      = enacted.get(feature.properties.COUNTY_NAME);
+      const row      = moratoriums.get(feature.properties.COUNTY_NAME);
+      const status   = (row['Status'] || '').trim();
+      const verb     = MORATORIUM_STATUS[status].verb;
       const duration = (row['Duration']       || '').trim();
       const body     = (row['Approving Body'] || '').trim();
       const date     = (row['Date Enacted']   || '').trim();
       const notes    = (row['Notes']          || '').trim();
       const link     = (row['Link']           || '').trim();
 
-      const summary = `${duration ? `${duration} ` : ''}moratorium${body ? ` approved by ${body}` : ''}${date ? ` on ${date}` : ''}.`;
+      const summary = `${duration ? `${duration} ` : ''}moratorium${body ? ` ${verb} ${body}` : ''}${date ? ` on ${date}` : ''}.`;
       const linkHtml = link ? ` <a href="${link}" target="_blank" rel="noopener noreferrer">(link)</a>` : '';
 
       layer.bindPopup(`
@@ -299,6 +306,10 @@ legend.onAdd = () => {
       <div class="legend-row">
         <span class="legend-swatch" style="background:#e34a33;border-color:#b30000"></span>
         Enacted
+      </div>
+      <div class="legend-row">
+        <span class="legend-swatch" style="background:#ffd54f;border-color:#c98a02"></span>
+        Introduced
       </div>
       <hr class="legend-sep">
       <h4>Layers</h4>
