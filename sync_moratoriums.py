@@ -37,11 +37,25 @@ def main():
         sys.exit(1)
 
     fieldnames = list(rows[0].keys())
-    with open(CSV_PATH, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
-        writer.writeheader()
-        writer.writerows(rows)
+    buf = io.StringIO()
+    writer = csv.DictWriter(buf, fieldnames=fieldnames)
+    writer.writeheader()
+    writer.writerows(rows)
+    new_content = buf.getvalue()
 
+    old_content = None
+    try:
+        with open(CSV_PATH, encoding="utf-8", newline="") as f:
+            old_content = f.read()
+    except FileNotFoundError:
+        pass
+
+    if new_content == old_content:
+        print("No changes detected — leaving CSV and last_updated.txt untouched.")
+        return
+
+    with open(CSV_PATH, "w", newline="", encoding="utf-8") as f:
+        f.write(new_content)
     print(f"Wrote {len(rows)} rows to {CSV_PATH}.")
 
     with open(LAST_UPDATED_PATH, "w", encoding="utf-8") as f:
