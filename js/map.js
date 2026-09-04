@@ -9,7 +9,7 @@ map.createPane('moratoriums'); map.getPane('moratoriums').style.zIndex = 220;
 map.createPane('powerlines');  map.getPane('powerlines').style.zIndex  = 300;
 map.createPane('centers');     map.getPane('centers').style.zIndex     = 400;
 
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?key=cb1_2vvl_1_97143e62df48380cd58af6a9', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
   subdomains: 'abcd',
   maxZoom: 19,
