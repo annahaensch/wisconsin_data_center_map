@@ -82,7 +82,7 @@ Promise.all([
   // County-level moratorium status, keyed by county name.
   const MORATORIUM_STATUS = {
     'Enacted':    { fill: '#e34a33', stroke: '#b30000', verb: 'approved by' },
-    'Introduced': { fill: '#ffd54f', stroke: '#c98a02', verb: 'introduced by' },
+    'Under Consideration': { fill: '#ffd54f', stroke: '#c98a02', verb: 'advanced by' },
   };
 
   const moratoriums = new Map();
@@ -107,8 +107,8 @@ Promise.all([
       const status   = (row['Status'] || '').trim();
       const verb     = MORATORIUM_STATUS[status].verb;
       const duration = (row['Duration']       || '').trim();
-      const body     = (row['Approving Body'] || '').trim();
-      const date     = (row['Date Enacted']   || '').trim();
+      const body     = (row['Advancing Body'] || '').trim();
+      const date     = (row['Date Advanced']   || '').trim();
       const notes    = (row['Notes']          || '').trim();
       const link     = (row['Link']           || '').trim();
 
@@ -309,7 +309,7 @@ legend.onAdd = () => {
       </div>
       <div class="legend-row">
         <span class="legend-swatch" style="background:#ffd54f;border-color:#c98a02"></span>
-        Introduced
+        Under Consideration
       </div>
       <hr class="legend-sep">
       <h4>Layers</h4>
