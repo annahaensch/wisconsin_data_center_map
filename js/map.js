@@ -81,7 +81,7 @@ Promise.all([
 
   // County-level moratorium status, keyed by county name.
   const MORATORIUM_STATUS = {
-    'Enacted':             { fill: '#e34a33', stroke: '#b30000', verb: 'enacted by' },
+    // 'Enacted':             { fill: '#e34a33', stroke: '#b30000', verb: 'enacted by' },
     'Approved':            { fill: '#fb8c42', stroke: '#c1440e', verb: 'approved by' },
     'Under Consideration': { fill: '#ffd54f', stroke: '#c98a02', verb: 'under consideration by' },
   };
@@ -308,10 +308,12 @@ legend.onAdd = () => {
         </div>`).join('')}
       <hr class="legend-sep">
       <h4>County Moratoriums</h4>
+      <!--
       <div class="legend-row">
         <span class="legend-swatch" style="background:#e34a33;border-color:#b30000"></span>
         Enacted
       </div>
+      -->
       <div class="legend-row">
         <span class="legend-swatch" style="background:#fb8c42;border-color:#c1440e"></span>
         Approved
