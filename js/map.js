@@ -81,9 +81,9 @@ Promise.all([
 
   // County-level moratorium status, keyed by county name.
   const MORATORIUM_STATUS = {
-    'Enacted':    { fill: '#e34a33', stroke: '#b30000', verb: 'approved by' },
-    'Approved':    { fill: '#e38e33', stroke: '#b30000', verb: 'approved by' },
-    'Under Consideration': { fill: '#ffd54f', stroke: '#c98a02', verb: 'advanced by' },
+    'Enacted':             { fill: '#e34a33', stroke: '#b30000', verb: 'enacted by' },
+    'Approved':            { fill: '#fb8c42', stroke: '#c1440e', verb: 'approved by' },
+    'Under Consideration': { fill: '#ffd54f', stroke: '#c98a02', verb: 'under consideration by' },
   };
 
   const moratoriums = new Map();
@@ -124,7 +124,11 @@ Promise.all([
         </div>
       `);
     }
-  }).addTo(map);
+  });
+
+  if (document.getElementById('toggle-moratorium').checked) {
+    moratoriumLayer.addTo(map);
+  }
 });
 
 // ---------------------------------------------------------------------------
@@ -309,7 +313,7 @@ legend.onAdd = () => {
         Enacted
       </div>
       <div class="legend-row">
-        <span class="legend-swatch" style="background:#e38e33;border-color:#c98a02"></span>
+        <span class="legend-swatch" style="background:#fb8c42;border-color:#c1440e"></span>
         Approved
       </div>
       <div class="legend-row">
@@ -323,7 +327,7 @@ legend.onAdd = () => {
         <label for="toggle-water">Water bodies</label>
       </div>
       <div class="legend-row">
-        <input type="checkbox" id="toggle-moratorium" checked>
+        <input type="checkbox" id="toggle-moratorium">
         <label for="toggle-moratorium">County moratoriums</label>
       </div>
     </div>
