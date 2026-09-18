@@ -82,6 +82,7 @@ Promise.all([
   // County-level moratorium status, keyed by county name.
   const MORATORIUM_STATUS = {
     'Enacted':    { fill: '#e34a33', stroke: '#b30000', verb: 'approved by' },
+    'Approved':    { fill: '#e38e33', stroke: '#b30000', verb: 'approved by' },
     'Under Consideration': { fill: '#ffd54f', stroke: '#c98a02', verb: 'advanced by' },
   };
 
