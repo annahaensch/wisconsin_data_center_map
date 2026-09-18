@@ -309,6 +309,10 @@ legend.onAdd = () => {
         Enacted
       </div>
       <div class="legend-row">
+        <span class="legend-swatch" style="background:#e38e33;border-color:#c98a02"></span>
+        Approved
+      </div>
+      <div class="legend-row">
         <span class="legend-swatch" style="background:#ffd54f;border-color:#c98a02"></span>
         Under Consideration
       </div>
