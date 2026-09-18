@@ -20,7 +20,7 @@ Wisconsin Department of Natural Resources, Bureau of Technology Services. *24K H
 
 ### County Moratoria
 
-County Moratoria and related links were pulled from Chali Pittman's <i> Data Processor</i>, "Data dispactch for Sept. 8" on September 17, 2026. <a href = https://wisconsindata.substack.com/p/data-dispatch-for-sept-8>https://wisconsindata.substack.com/p/data-dispatch-for-sept-8</a>
+County Moratoria and related links were pulled from Chali Pittman's <i> Data Processor</i>, "Data dispactch for Sept. 8." Retrieved September 2026. <a href = https://wisconsindata.substack.com/p/data-dispatch-for-sept-8>https://wisconsindata.substack.com/p/data-dispatch-for-sept-8</a>
 
 ## Using and Citing this Project
 You are free to use this data and map as you wish under the MIT License, but please cite it as follows:
