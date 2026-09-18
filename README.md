@@ -18,6 +18,10 @@ U.S. Fish and Wildlife Service. *US Electric Power Transmission Lines*. USFWS Op
 
 Wisconsin Department of Natural Resources, Bureau of Technology Services. *24K Hydro Waterbodies (Open Water)*. Wisconsin DNR Open Data Portal. Retrieved April 2026. [https://data-wi-dnr.opendata.arcgis.com/datasets/31f1f67253074ef9afe46cd905bff07a_1](https://data-wi-dnr.opendata.arcgis.com/datasets/31f1f67253074ef9afe46cd905bff07a_1)
 
+### County Moratoria
+
+County Moratoria and related links were pulled from Chali Pittman's <i> Data Processor</i>, "Data dispactch for Sept. 8" on September 17, 2026. <a href = https://wisconsindata.substack.com/p/data-dispatch-for-sept-8>https://wisconsindata.substack.com/p/data-dispatch-for-sept-8</a>
+
 ## Using and Citing this Project
 You are free to use this data and map as you wish under the MIT License, but please cite it as follows:
 
