@@ -1,4 +1,6 @@
-# Wisconsin Data Centers
+[![DOI](https://zenodo.org/badge/1220380154.svg)](https://doi.org/10.5281/zenodo.22883214)
+
+# Wisconsin Data Center Map
 
 This projects hosts data and an interactive map of data centers in Wisconsin based on information I've been collecting and aggregating manually. The map was created with the help of Claude Code. 
 
@@ -26,9 +28,8 @@ County Moratoria and related links were pulled from Chali Pittman's <i> Data Pro
 You are free to use this data and map as you wish under the MIT License, but please cite it as follows:
 
 ```
-Haensch, A. (2026). Wisconsin Data Center Map v.1.0.0. 10.5281/zenodo.22883215
+Haensch, A. Wisconsin Data Center Map. Version v1.0.0, Zenodo, 21 Sept. 2026, https://doi.org/10.5281/zenodo.22883215.
 ```
-[![DOI](https://zenodo.org/badge/1220380154.svg)](https://doi.org/10.5281/zenodo.22883214)
 
 ## Contact
 
