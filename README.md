@@ -26,8 +26,9 @@ County Moratoria and related links were pulled from Chali Pittman's <i> Data Pro
 You are free to use this data and map as you wish under the MIT License, but please cite it as follows:
 
 ```
-Haensch, A. (2026). Wisconsin Data Center Map. https://github.com/annahaensch/wisconsin_data_center_map
+Haensch, A. (2026). Wisconsin Data Center Map v.1.0.0. 10.5281/zenodo.22883215
 ```
+[![DOI](https://zenodo.org/badge/1220380154.svg)](https://doi.org/10.5281/zenodo.22883214)
 
 ## Contact
 
