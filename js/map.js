@@ -57,7 +57,11 @@ fetch('data/wi_waterbodies.geojson')
         fillColor: '#a8d4e8',
         fillOpacity: 0.6,
       }
-    }).addTo(map);
+    });
+
+    if (document.getElementById('toggle-water').checked) {
+      waterbodiesLayer.addTo(map);
+    }
   });
 
 // ---------------------------------------------------------------------------
