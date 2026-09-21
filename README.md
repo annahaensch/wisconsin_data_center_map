@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/1220380154.svg)](https://doi.org/10.5281/zenodo.22883214)
+[![DOI](https://zenodo.org/badge/22883215.svg)](https://doi.org/10.5281/zenodo.22883214)
 
 # Wisconsin Data Center Map
 
