@@ -367,7 +367,7 @@ legend.onAdd = () => {
       </div>
       <div class="legend-row">
         <input type="checkbox" id="toggle-proposed-lines">
-        <label for="toggle-proposed-lines">Transmission lines proposed or under construction</label>
+        <label for="toggle-proposed-lines">Future transmission lines</label>
       </div>
     </div>
   `;
