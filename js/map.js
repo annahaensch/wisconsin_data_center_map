@@ -340,7 +340,7 @@ legend.onAdd = () => {
         Proposed / under construction
       </div>
       <hr class="legend-sep">
-      <h4>County Moratoriums</h4>
+      <h4>County Moratoria</h4>
       <!--
       <div class="legend-row">
         <span class="legend-swatch" style="background:#e34a33;border-color:#b30000"></span>
@@ -363,11 +363,11 @@ legend.onAdd = () => {
       </div>
       <div class="legend-row">
         <input type="checkbox" id="toggle-moratorium">
-        <label for="toggle-moratorium">County moratoriums</label>
+        <label for="toggle-moratorium">County moratoria</label>
       </div>
       <div class="legend-row">
         <input type="checkbox" id="toggle-proposed-lines">
-        <label for="toggle-proposed-lines">Proposed transmission lines</label>
+        <label for="toggle-proposed-lines">Transmission lines proposed or under construction</label>
       </div>
     </div>
   `;
