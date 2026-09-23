@@ -5,3 +5,5 @@ data/24k_Hydro_Waterbodies_(Open_Water)/
 clip_power_lines.py
 notebooks/
 requirements.txt
+data/WI_Electric_Transmission_Lines_9_21_26/
+convert_proposed_lines.py

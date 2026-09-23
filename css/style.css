@@ -195,6 +195,10 @@ header h1 {
   flex-shrink: 0;
 }
 
+.legend-line-dashed {
+  background: repeating-linear-gradient(90deg, #555 0 5px, transparent 5px 8px);
+}
+
 .legend-swatch {
   width: 14px;
   height: 14px;

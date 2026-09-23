@@ -7,6 +7,7 @@ map.createPane('waterbodies');  map.getPane('waterbodies').style.zIndex  = 250;
 map.createPane('counties');    map.getPane('counties').style.zIndex    = 200;
 map.createPane('moratoriums'); map.getPane('moratoriums').style.zIndex = 220;
 map.createPane('powerlines');  map.getPane('powerlines').style.zIndex  = 300;
+map.createPane('proposedlines'); map.getPane('proposedlines').style.zIndex = 310;
 map.createPane('centers');     map.getPane('centers').style.zIndex     = 400;
 
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?key=cb1_2vvl_1_97143e62df48380cd58af6a9', {
@@ -139,6 +140,7 @@ Promise.all([
 // Power lines
 // ---------------------------------------------------------------------------
 const VOLT_COLORS = {
+  '765':       '#00441b',
   '345':       '#1b7837',
   '220-287':   '#4dac26',
   '100-161':   '#a6d96a',
@@ -146,6 +148,7 @@ const VOLT_COLORS = {
 };
 
 const VOLT_WEIGHT = {
+  '765':       3,
   '345':       2.2,
   '220-287':   1.6,
   '100-161':   1.1,
@@ -163,6 +166,28 @@ fetch('data/wi_power_lines.geojson')
         opacity: 0.75,
       })
     }).addTo(map);
+  });
+
+// Proposed / under construction lines: same colors and widths, dashed.
+// Lines already IN SERVICE in this dataset are drawn solid.
+let proposedLinesLayer = null;
+
+fetch('data/wi_proposed_power_lines.geojson')
+  .then(r => r.json())
+  .then(data => {
+    proposedLinesLayer = L.geoJSON(data, {
+      pane: 'proposedlines',
+      style: f => ({
+        color:     VOLT_COLORS[f.properties.VOLT_CLASS] || '#ccc',
+        weight:    VOLT_WEIGHT[f.properties.VOLT_CLASS] || 0.7,
+        opacity:   0.75,
+        dashArray: f.properties.STATUS === 'IN SERVICE' ? null : '6 4',
+      })
+    });
+
+    if (document.getElementById('toggle-proposed-lines').checked) {
+      proposedLinesLayer.addTo(map);
+    }
   });
 
 // ---------------------------------------------------------------------------
@@ -305,11 +330,15 @@ legend.onAdd = () => {
         </div>`).join('')}
       <hr class="legend-sep">
       <h4>Transmission (kV)</h4>
-      ${Object.entries(VOLT_COLORS).map(([label, color]) => `
+      ${['765', '345', '220-287', '100-161', 'UNDER 100'].map(label => [label, VOLT_COLORS[label]]).map(([label, color]) => `
         <div class="legend-row">
           <span class="legend-line" style="background:${color}"></span>
           ${label}
         </div>`).join('')}
+      <div class="legend-row">
+        <span class="legend-line legend-line-dashed"></span>
+        Proposed / under construction
+      </div>
       <hr class="legend-sep">
       <h4>County Moratoriums</h4>
       <!--
@@ -335,6 +364,10 @@ legend.onAdd = () => {
       <div class="legend-row">
         <input type="checkbox" id="toggle-moratorium">
         <label for="toggle-moratorium">County moratoriums</label>
+      </div>
+      <div class="legend-row">
+        <input type="checkbox" id="toggle-proposed-lines">
+        <label for="toggle-proposed-lines">Proposed transmission lines</label>
       </div>
     </div>
   `;
@@ -364,5 +397,11 @@ document.getElementById('toggle-water').addEventListener('change', e => {
 document.getElementById('toggle-moratorium').addEventListener('change', e => {
   if (moratoriumLayer) {
     e.target.checked ? moratoriumLayer.addTo(map) : map.removeLayer(moratoriumLayer);
+  }
+});
+
+document.getElementById('toggle-proposed-lines').addEventListener('change', e => {
+  if (proposedLinesLayer) {
+    e.target.checked ? proposedLinesLayer.addTo(map) : map.removeLayer(proposedLinesLayer);
   }
 });
