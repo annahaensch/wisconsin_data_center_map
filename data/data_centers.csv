@@ -6,7 +6,7 @@ Name,Owner,Address,Town,Status,Acres,Power Capacity (MW),Notes,Links,,Latitude,L
 ,Aventus 715,901 Commerce Dr,Marshfield,Operational,0.45,,,,,44.6662,-90.174
 ,Aventus Lakes,7901 W. Clinton Ave.,Milwaukee,Operational,0.59,,,,,43.1513,-88.0097
 ,Balloonist LLC,County Rd. B,Menomonie,Paused,320,,"Project paused indefinitely on Sept. 17, 2025 via executive action by mayor of Menomonie.",https://www.wpr.org/news/menomonie-mayor-puts-data-center-proposal-on-hold,,44.888,-91.8871
-Beaver Dam Data Center Campus,Meta,8773 County Road A,Beaver Dam,Under Construction,520,400,,,,43.5064,-88.8031
+Beaver Dam Data Center Campus,Meta,8773 County Road A,Beaver Dam,Under Construction,520,220,"Update to peak demand power of 220 MW finalized on June 18, 2026. ",https://apps.psc.wi.gov/ERF/ERFview/viewdoc.aspx?docid=594678,,43.5064,-88.8031
 ,"Cogent Communications, Inc.",324 E. Wisconsin Ave.,Milwaukee,Operational,0.01,0.1,,,,43.039,-87.9069
 Congent Data Center - Milwaukee 2,"Cogent Communications, Inc.",2915 South 5th Ct.,Milwaukee,Operational,0.13,,,,,42.9912,-87.9165
 ,CyberLynk Network Inc.,10125 52nd St.,Franklin,Operational,-1,,,,,42.8619,-87.9828
@@ -38,7 +38,7 @@ Project Nova Campus,Microsoft,Botting Rd.,Caledonia,Canceled,244,,"Project dropp
 ,Tier Point,3701 W. Burnham St.,Milwaukee,Operational,0.64,0.5,,,,43.0095,-87.9611
 ,TSR Solutions,324 E. Wisconsin Ave.,Milwaukee,Operational,0.11,,,,,43.039,-87.9069
 ,"US Signal Company, LLC",5515 Nobel Dr.,Fitchburg,Operational,0.08,6,,,,42.9948,-89.4234
-Lighthouse,Vantage Data Centers,Interstate 43,Port Washington,Under Construction,672,902,,,,43.3886,-87.8693
+Lighthouse,Vantage Data Centers,Interstate 43,Port Washington,Under Construction,672,1300,Projected utility power 1.3 MW according to Vantage presentation to Port Washington Planning Commission.,https://www.portwashingtonwi.gov/home/showpublisheddocument/6130/638920681939470000,,43.3886,-87.8693
 ,Vaultas,3135 Highland Blvd,Milwaukee,Operational,0.22,,,,,43.0437,-87.954
 ,Veolia North America,8450 W. Forest Home Ave.,Greenfield,Operational,-1,,,,,42.9578,-88.0197
 ,Viridian Acquisitions,1000 General Motors Dr.,Janesville,Canceled,250,,"City council allowed letter of intent to lapse on June 22, 2026 after resident pushback.",https://www.gazettextra.com/news/janesville-will-allow-letter-of-intent-with-viridian-to-expire/article_2defc8db-69ef-4ea9-9385-6786a09432d4.html,,42.683,-89.0227
