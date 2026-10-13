@@ -97,7 +97,7 @@ Promise.all([
     // 'Enacted':             { fill: '#e34a33', stroke: '#b30000', verb: 'enacted by' },
     'Approved':            { fill: '#fb8c42', stroke: '#c1440e', verb: 'approved by' },
     'Under Consideration': { fill: '#ffd54f', stroke: '#c98a02', verb: 'under consideration by' },
-    'Rejected':            { fill: '#d0d0d0', stroke: '#8c8c8c', verb: 'rejected by' },
+    'Rejected':            { fill: '#b5b5b5', stroke: '#737373', verb: 'rejected by' },
   };
 
   const moratoriums = new Map();
@@ -365,7 +365,7 @@ legend.onAdd = () => {
         Under Consideration
       </div>
       <div class="legend-row">
-        <span class="legend-swatch" style="background:#d0d0d0;border-color:#8c8c8c"></span>
+        <span class="legend-swatch" style="background:#b5b5b5;border-color:#737373"></span>
         Rejected
       </div>
       <hr class="legend-sep">
