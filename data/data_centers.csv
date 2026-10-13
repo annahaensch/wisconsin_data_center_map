@@ -1,11 +1,11 @@
 Name,Owner,Address,Town,Status,Acres,Power Capacity (MW),Notes,Links,,Latitude,Longitude
-,1547 Critical Systems Realty,324 E. Wisconsin Ave.,Milwaukee,Operational,3.6,1,,,,43.0386,-87.9091
-5NINES Data Center,5NINES,222 W. Washington Ave.,Madison,Operational,0.12,,,,,43.0731,-89.3869
+,1547 Critical Systems Realty,324 E. Wisconsin Ave.,Milwaukee,Operational,3.6,1,,,,43.039,-87.9069
+5NINES Data Center,5NINES,222 W. Washington Ave.,Madison,Operational,0.12,,,,,43.0733,-89.3871
 ,Airiam,2301 Sun Valley Dr.,Delafield,Operational,-1,,,,,43.0513,-88.3799
 ,Ark Data Centers,Fire Ln 11,Harrison ,Operational,24.5,20,,,,44.2052,-88.3459
-,Aventus 715,901 Commerce Dr,Marshfield,Operational,0.45,,,,,44.6662,-90.174
+,Aventus 715,901 Commerce Dr,Marshfield,Operational,0.45,,,,,44.6322,-90.1735
 ,Aventus Lakes,7901 W. Clinton Ave.,Milwaukee,Operational,0.59,,,,,43.1513,-88.0097
-,Balloonist LLC,County Rd. B,Menomonie,Paused,320,,"Project paused indefinitely on Sept. 17, 2025 via executive action by mayor of Menomonie.",https://www.wpr.org/news/menomonie-mayor-puts-data-center-proposal-on-hold,,44.888,-91.8871
+,Balloonist LLC,County Rd. B,Menomonie,Paused,320,,"Project paused indefinitely on Sept. 17, 2025 via executive action by mayor of Menomonie.",https://www.wpr.org/news/menomonie-mayor-puts-data-center-proposal-on-hold,,44.8765,-91.9279
 Beaver Dam Data Center Campus,Meta,8773 County Road A,Beaver Dam,Under Construction,520,220,"Update to peak demand power of 220 MW finalized on June 18, 2026. ",https://apps.psc.wi.gov/ERF/ERFview/viewdoc.aspx?docid=594678,,43.5064,-88.8031
 ,"Cogent Communications, Inc.",324 E. Wisconsin Ave.,Milwaukee,Operational,0.01,0.1,,,,43.039,-87.9069
 Congent Data Center - Milwaukee 2,"Cogent Communications, Inc.",2915 South 5th Ct.,Milwaukee,Operational,0.13,,,,,42.9912,-87.9165
@@ -13,25 +13,25 @@ Congent Data Center - Milwaukee 2,"Cogent Communications, Inc.",2915 South 5th C
 ,CyberOne Data,141 Market Ave. ,Port Edwards,Operational,0.04,0.5,,,,44.3428,-89.8594
 Dane County Exchange 2,Dane County Data Exchange,3351 Dairy Dr.,Madison,Planned,14,60,,,,43.0558,-89.2951
 Dane County Exchange 1,Dane County Data Exchange,4916 E. Broadway,Madison,Operational,0.64,18,,,,43.0481,-89.2983
-Data Holdings Milwaukee,Data Holdings,3135 W. Highland Ave.,Milwaukee,Operational,0.57,10,,,,43.0444,-87.9317
+Data Holdings Milwaukee,Data Holdings,3135 W. Highland Ave.,Milwaukee,Operational,0.57,10,,,,43.0445,-87.9471
 ,EdgeConneX,4916 E. Broadway,Madison,Operational,0.18,1,,,,43.0481,-89.2983
 ,Ethoplex,N115W19150 Edison Dr,Germantown,Operational,-1,,,,,43.2279,-88.1468
 ,ExcalTech,3618 8th Ave.,Kenosha,Operational,-1,,,,,42.6062,-87.8217
 Milwaukee Data Center,Expedient Data Centers,4777 Ironwood Dr.,Franklin,Operational,0.6,1.6,,,,42.8631,-87.9779
 ,Heartland Business Systems,1700 Stephen St.,Little Chute,Operational,-1,,,,,44.2966,-88.2939
-,Hoyos Consulting LLC,612 W. Main St.,Madison,Operational,-1,,,,,43.0747,-89.3842
+,Hoyos Consulting LLC,612 W. Main St.,Madison,Operational,-1,,,,,43.0678,-89.3923
 MQS5,ISCorp,10235 N. Port Washington Rd.,Mequon,Operational,0.45,,,,,43.2059,-87.9244
 ,Lumen,612 W. Main St.,Madison,Operational,-1,,,,,43.0678,-89.3923
 Milwaukee 1 Data Center,Lumen,3235 Intertech Dr.,Brookfield,Operational,0.11,,,,,43.0776,-88.1848
 Fairwater,Microsoft,East of County Rd. H between Braun Rd. and County Line Rd,Mt. Pleasant,Operational,215,400,"Operational as of June 23, 2026.",https://news.microsoft.com/source/2026/06/23/microsoft-completes-construction-on-first-datacenter-facility-in-mount-pleasant-wisconsin/,,42.6771,-87.9269
 Area 3A,Microsoft,West of 90th St. between Braun Rd. and County Line Rd.,Mt. Pleasant,Under Construction,115,500,,,,42.6736,-87.8999
-Durand Avenue Campus,Microsoft,12023 Durand Ave.,Mt. Pleasant,Under Construction,791,,"Project approved by Mt. Pleasant Village Board on Jan. 27, 2026.",https://www.wpr.org/news/mount-pleasant-approves-site-plans-microsoft-data-center-expansion,,42.7192,-87.8543
-International Drive Campus,Microsoft,2700 International Drive,Mt. Pleasant,Under Construction,530,,"Project approved by Mt. Pleasant Village Board on Jan. 27, 2026.",https://www.wpr.org/news/mount-pleasant-approves-site-plans-microsoft-data-center-expansion,,42.7112,-87.9339
+Durand Avenue Campus,Microsoft,12023 Durand Ave.,Mt. Pleasant,Under Construction,791,,"Project approved by Mt. Pleasant Village Board on Jan. 27, 2026.",https://www.wpr.org/news/mount-pleasant-approves-site-plans-microsoft-data-center-expansion,,42.6984,-87.9304
+International Drive Campus,Microsoft,2700 International Drive,Mt. Pleasant,Under Construction,530,,"Project approved by Mt. Pleasant Village Board on Jan. 27, 2026.",https://www.wpr.org/news/mount-pleasant-approves-site-plans-microsoft-data-center-expansion,,42.7077,-87.9336
 Project Nova Campus,Microsoft,Botting Rd.,Caledonia,Canceled,244,,"Project dropped by developers on Oct. 8, 2025 after community pushback.",https://www.wpr.org/news/microsoft-caledonia-data-center-site-ozaukee-county,,42.8211,-87.8501
 ,Netsonic,1263 Main Street,Green Bay,Operational,-1,,,,,44.5113,-87.9971
 ,Netwurx,324 E. Wisconsin Ave.,Milwaukee,Operational,-1,,,,,43.039,-87.9069
-,New Era Technology,2201 E. Enterprise Ave.,Appleton,Operational,-1,,,,,44.2995,-88.3665
-,New Era Technology,10400 W. Innovation Dr.,Milwaukee,Operational,-1,,,,,43.0386,-87.9091
+,New Era Technology,2201 E. Enterprise Ave.,Appleton,Operational,-1,,,,,44.2998,-88.3708
+,New Era Technology,10400 W. Innovation Dr.,Milwaukee,Operational,-1,,,,,43.0426,-88.0421
 ,Offsite LLC,3618 7th Ave.,Kenosha,Operational,0.68,5,,,,42.6048,-87.8206
 ,QTS,,DeForest,Canceled,650,1600,"Project dropped on Jan. 27, 2026 after it was determined ""not feasible"" by DeForest Village Board.",https://www.wpr.org/news/deforest-wont-move-forward-data-center,,43.2478,-89.3437
 ,SupraNet Communications,800 Excelsior Dr.,Madison,Operational,-1,,,,,43.0745,-89.525
@@ -42,7 +42,7 @@ Lighthouse,Vantage Data Centers,Interstate 43,Port Washington,Under Construction
 ,Vaultas,3135 Highland Blvd,Milwaukee,Operational,0.22,,,,,43.0437,-87.954
 ,Veolia North America,8450 W. Forest Home Ave.,Greenfield,Operational,-1,,,,,42.9578,-88.0197
 ,Viridian Acquisitions,1000 General Motors Dr.,Janesville,Canceled,250,,"City council allowed letter of intent to lapse on June 22, 2026 after resident pushback.",https://www.gazettextra.com/news/janesville-will-allow-letter-of-intent-with-viridian-to-expire/article_2defc8db-69ef-4ea9-9385-6786a09432d4.html,,42.683,-89.0227
-,Wildcard Corp,Indianhead Drive,Mosinee,Operational,0.32,,,,,44.7934,-89.6771
+,Wildcard Corp,Indianhead Drive,Mosinee,Operational,0.32,,,,,44.7937,-89.6626
 ,WIN Technology,800 Wisconsin Street,Eau Claire,Operational,0.09,1,,,,44.8157,-91.495
 ,WIN Technology,417 Pine St.,Green Bay,Operational,0.05,0.25,,,,44.5152,-88.0116
 ,Windstream,13935 Bishops Dr.,Brookfield,Operational,0.13,,,,,43.0277,-88.0862

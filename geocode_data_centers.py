@@ -13,11 +13,13 @@ Geocodes are cached from the existing CSV so each address is only looked up
 once. For addresses that can't be resolved, falls back to the town centroid.
 
 Run by the GitHub Actions workflow. Can also be run locally.
+Pass --refresh to ignore cached geocodes and re-geocode every row.
 """
 
 import csv
 import hashlib
 import io
+import re
 import sys
 import time
 import urllib.request
@@ -54,15 +56,19 @@ def geocode(query: str):
     return None, None
 
 
+def normalize_address(addr: str) -> str:
+    """Drop periods after abbreviations ("Ave.", "W."): Nominatim often fails
+    to match them and falls back to the town centroid."""
+    return re.sub(r"\s+", " ", re.sub(r"\.(?=\s|$|,)", "", addr)).strip()
+
+
 def row_fingerprint(row: dict) -> str:
-    """MD5 of all non-lat/lon fields. Cache is invalidated when any other
-    field changes, triggering a fresh geocode for that row."""
-    content = "|".join(
-        f"{k}={row.get(k, '').strip()}"
-        for k in sorted(row.keys())
-        if k not in _SKIP
-    )
-    return hashlib.md5(content.encode()).hexdigest()
+    """MD5 of the address and town only, so editing notes/status/etc. in the
+    sheet doesn't trigger a re-geocode (which can move the marker). Bump the
+    "v" prefix to force every row to be re-geocoded."""
+    addr = normalize_address(row.get("Address", "")).lower()
+    town = row.get("Town", "").strip().lower()
+    return hashlib.md5(f"v2|{addr}|{town}".encode()).hexdigest()
 
 
 def load_cache(path: str) -> dict:
@@ -92,7 +98,7 @@ def fetch_sheet() -> list[dict]:
 
 
 def main():
-    cache = load_cache(CSV_PATH)
+    cache = {} if "--refresh" in sys.argv else load_cache(CSV_PATH)
     print(f"Loaded {len(cache)} cached geocodes from existing CSV.")
 
     rows = fetch_sheet()
@@ -129,13 +135,13 @@ def main():
         lat = lon = None
 
         if addr and addr.lower() != "unknown":
-            query = f"{addr}, {town}, Wisconsin, USA"
+            query = f"{normalize_address(addr)}, {town}, Wisconsin, USA"
             print(f"  Geocoding: {query}")
             lat, lon = geocode(query)
 
         if lat is None and town:
             query = f"{town}, Wisconsin, USA"
-            print(f"  Falling back to town centroid: {query}")
+            print(f"  WARNING: falling back to town centroid (set Approx_Lat/Approx_Lon in the sheet to fix): {query}", file=sys.stderr)
             lat, lon = geocode(query)
 
         if lat is not None:
