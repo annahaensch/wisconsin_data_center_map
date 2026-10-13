@@ -35,7 +35,7 @@ function statusStyle(status) {
 // ---------------------------------------------------------------------------
 // Last updated
 // ---------------------------------------------------------------------------
-fetch('data/last_updated.txt')
+fetch('data/last_updated.txt', { cache: 'no-store' })
   .then(r => r.text())
   .then(date => {
     const el = document.getElementById('last-updated');
