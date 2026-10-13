@@ -57,7 +57,8 @@ fetch('data/wi_waterbodies.geojson')
         weight: 0.5,
         fillColor: '#a8d4e8',
         fillOpacity: 0.6,
-      }
+      },
+      interactive: false,  // let clicks fall through to the county cards
     });
 
     if (document.getElementById('toggle-water').checked) {
@@ -81,6 +82,13 @@ Promise.all([
       weight: 0.8,
       fillColor: '#f5f5f0',
       fillOpacity: 0.3,
+    },
+    onEachFeature: (feature, layer) => {
+      layer.bindPopup(`
+        <div class="dc-tooltip">
+          <div class="owner">${feature.properties.COUNTY_NAME} County</div>
+        </div>
+      `);
     }
   }).addTo(map);
 
@@ -89,6 +97,7 @@ Promise.all([
     // 'Enacted':             { fill: '#e34a33', stroke: '#b30000', verb: 'enacted by' },
     'Approved':            { fill: '#fb8c42', stroke: '#c1440e', verb: 'approved by' },
     'Under Consideration': { fill: '#ffd54f', stroke: '#c98a02', verb: 'under consideration by' },
+    'Rejected':            { fill: '#d0d0d0', stroke: '#8c8c8c', verb: 'rejected by' },
   };
 
   const moratoriums = new Map();
@@ -112,7 +121,7 @@ Promise.all([
       const row      = moratoriums.get(feature.properties.COUNTY_NAME);
       const status   = (row['Status'] || '').trim();
       const verb     = MORATORIUM_STATUS[status].verb;
-      const duration = (row['Duration']       || '').trim();
+      const duration = (row['Duration']       || '').trim().replace(/^[-–—\s]+$/, '');
       const body     = (row['Advancing Body'] || '').trim();
       const date     = (row['Date Advanced']   || '').trim();
       const notes    = (row['Notes']          || '').trim();
@@ -354,6 +363,10 @@ legend.onAdd = () => {
       <div class="legend-row">
         <span class="legend-swatch" style="background:#ffd54f;border-color:#c98a02"></span>
         Under Consideration
+      </div>
+      <div class="legend-row">
+        <span class="legend-swatch" style="background:#d0d0d0;border-color:#8c8c8c"></span>
+        Rejected
       </div>
       <hr class="legend-sep">
       <h4>Layers</h4>
