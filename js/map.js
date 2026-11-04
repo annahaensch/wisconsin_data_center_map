@@ -216,24 +216,30 @@ function acreRadius(acres) {
 // ---------------------------------------------------------------------------
 const withScheme = url => (/^https?:\/\//i.test(url) ? url : `https://${url}`);
 
-const NOTE_BREAK = /\s+-\s+(?=(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+\d)/;
+const NOTE_BREAK = /\s+-\s+(?=(?:(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?|Spring|Summer|Fall|Autumn|Winter)\s+\d)/;
 
-function linkHtml(url, label = 'link') {
-  return ` <a href="${withScheme(url)}" target="_blank" rel="noopener noreferrer">(${label})</a>`;
+// A link group is one or more URLs from a single cell; "a;b" is one group of
+// two and renders as "(link, link)" inside a single pair of parentheses.
+function linkHtml(group, label = 'link') {
+  const anchors = group.map(u => `<a href="${withScheme(u)}" target="_blank" rel="noopener noreferrer">${label}</a>`);
+  return ` (${anchors.join(', ')})`;
 }
 
-// Links_1, Links_2, ... in column order; blanks and repeats dropped.
+// Links_1, Links_2, ... in column order; blanks and repeated groups dropped.
+// Commas separate groups; semicolons separate URLs within a group.
 function rowLinks(row) {
   const keys = Object.keys(row).filter(k => /^Links?(_\d+)?$/.test(k))
     .sort((a, b) => (parseInt(a.split('_')[1], 10) || 0) - (parseInt(b.split('_')[1], 10) || 0));
-  const urls = keys.flatMap(k => (row[k] || '').split(',')).map(u => u.trim()).filter(Boolean);
-  return urls.filter((u, i) => urls.indexOf(u) === i);
+  const seen = new Set();
+  return keys.flatMap(k => (row[k] || '').split(','))
+    .map(cell => cell.split(';').map(u => u.trim()).filter(Boolean))
+    .filter(g => g.length && !seen.has(g.join(';')) && seen.add(g.join(';')));
 }
 
-// Bulleted notes get link i on bullet i (extras go on the last bullet);
-// plain notes get every link at the end.
+// Bulleted notes get link group i on bullet i (extras go on the last bullet);
+// plain notes get every link group at the end.
 function notesHtml(notes, links) {
-  const all = (urls, offset = 0) => urls.map((u, i) => linkHtml(u, urls.length > 1 || offset ? `link ${i + 1 + offset}` : 'link')).join('');
+  const all = (groups, offset = 0) => groups.map((g, i) => linkHtml(g, g.length === 1 && (groups.length > 1 || offset) ? `link ${i + 1 + offset}` : 'link')).join('');
   if (!notes.startsWith('- ')) {
     return `<div class="notes">${notes}${all(links)}</div>`;
   }
