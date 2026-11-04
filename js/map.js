@@ -218,10 +218,32 @@ const withScheme = url => (/^https?:\/\//i.test(url) ? url : `https://${url}`);
 
 const NOTE_BREAK = /\s+-\s+(?=(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+\d)/;
 
-function notesHtml(notes, linkHtml) {
-  if (!notes.startsWith('- ')) return `<div class="notes">${notes}${linkHtml}</div>`;
+function linkHtml(url, label = 'link') {
+  return ` <a href="${withScheme(url)}" target="_blank" rel="noopener noreferrer">(${label})</a>`;
+}
+
+// Links_1, Links_2, ... in column order; blanks and repeats dropped.
+function rowLinks(row) {
+  const keys = Object.keys(row).filter(k => /^Links?(_\d+)?$/.test(k))
+    .sort((a, b) => (parseInt(a.split('_')[1], 10) || 0) - (parseInt(b.split('_')[1], 10) || 0));
+  const urls = keys.flatMap(k => (row[k] || '').split(',')).map(u => u.trim()).filter(Boolean);
+  return urls.filter((u, i) => urls.indexOf(u) === i);
+}
+
+// Bulleted notes get link i on bullet i (extras go on the last bullet);
+// plain notes get every link at the end.
+function notesHtml(notes, links) {
+  const all = (urls, offset = 0) => urls.map((u, i) => linkHtml(u, urls.length > 1 || offset ? `link ${i + 1 + offset}` : 'link')).join('');
+  if (!notes.startsWith('- ')) {
+    return `<div class="notes">${notes}${all(links)}</div>`;
+  }
   const items = notes.slice(2).split(NOTE_BREAK).map(t => t.trim()).filter(Boolean);
-  const lis = items.map((t, i) => `<li>${t}${i === items.length - 1 ? linkHtml : ''}</li>`).join('');
+  const lis = items.map((t, i) => {
+    const isLast = i === items.length - 1;
+    const own = links[i] ? linkHtml(links[i]) : '';
+    const extra = isLast && links.length > items.length ? all(links.slice(items.length), items.length) : '';
+    return `<li>${t}${own}${extra}</li>`;
+  }).join('');
   return `<div class="notes"><ul class="notes-list">${lis}</ul></div>`;
 }
 
@@ -283,14 +305,13 @@ Papa.parse('data/data_centers.csv', {
         const addressLine = [address, town ? `${town}, WI` : ''].filter(Boolean).join(', ');
 
         const notes = (r['Notes'] || '').trim();
-        const link  = (r['Links'] || '').split(',').map(s => s.trim()).filter(Boolean)[0];
-        const linkHtml = link ? ` <a href="${withScheme(link)}" target="_blank" rel="noopener noreferrer">(link)</a>` : '';
+        const links = rowLinks(r);
 
         return `
           <div class="dc-entry">
             <div class="owner">${heading}</div>
             ${addressLine ? `<div class="address">${addressLine}</div>` : ''}
-            ${notes ? notesHtml(notes, linkHtml) : (linkHtml ? `<div class="notes">${linkHtml}</div>` : '')}
+            ${notes || links.length ? notesHtml(notes, links) : ''}
           </div>`;
       }).join('<hr class="dc-divider">');
 
