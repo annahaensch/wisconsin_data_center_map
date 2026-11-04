@@ -80,6 +80,15 @@ header h1 {
   margin-top: 0.2rem;
 }
 
+.dc-tooltip .notes-list {
+  margin: 0.1rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.dc-tooltip .notes-list li {
+  margin-bottom: 0.25rem;
+}
+
 .dc-tooltip .notes a {
   color: #2a6ebb;
 }

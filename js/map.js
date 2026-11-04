@@ -212,6 +212,20 @@ function acreRadius(acres) {
 }
 
 // ---------------------------------------------------------------------------
+// Notes: "- <date>: text. - <date>: text" becomes a bulleted list
+// ---------------------------------------------------------------------------
+const withScheme = url => (/^https?:\/\//i.test(url) ? url : `https://${url}`);
+
+const NOTE_BREAK = /\s+-\s+(?=(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+\d)/;
+
+function notesHtml(notes, linkHtml) {
+  if (!notes.startsWith('- ')) return `<div class="notes">${notes}${linkHtml}</div>`;
+  const items = notes.slice(2).split(NOTE_BREAK).map(t => t.trim()).filter(Boolean);
+  const lis = items.map((t, i) => `<li>${t}${i === items.length - 1 ? linkHtml : ''}</li>`).join('');
+  return `<div class="notes"><ul class="notes-list">${lis}</ul></div>`;
+}
+
+// ---------------------------------------------------------------------------
 // Data centers
 // ---------------------------------------------------------------------------
 const STATUS_ORDER = ['Operational', 'Paused', 'Canceled', 'Under Construction', 'Permitting', 'Planned'];
@@ -270,13 +284,13 @@ Papa.parse('data/data_centers.csv', {
 
         const notes = (r['Notes'] || '').trim();
         const link  = (r['Links'] || '').split(',').map(s => s.trim()).filter(Boolean)[0];
-        const linkHtml = link ? ` <a href="${link}" target="_blank" rel="noopener noreferrer">(link)</a>` : '';
+        const linkHtml = link ? ` <a href="${withScheme(link)}" target="_blank" rel="noopener noreferrer">(link)</a>` : '';
 
         return `
           <div class="dc-entry">
             <div class="owner">${heading}</div>
             ${addressLine ? `<div class="address">${addressLine}</div>` : ''}
-            ${notes ? `<div class="notes">${notes}${linkHtml}</div>` : ''}
+            ${notes ? notesHtml(notes, linkHtml) : (linkHtml ? `<div class="notes">${linkHtml}</div>` : '')}
           </div>`;
       }).join('<hr class="dc-divider">');
 
